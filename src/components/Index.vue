@@ -3,7 +3,7 @@
     import { defineComponent } from 'vue'
     import { newClient } from '../utils/httpClient'
 
-    const token = ""
+    const token = ''
     const client = newClient(token)
     export default defineComponent({
         components: {
@@ -52,8 +52,8 @@
                     <message-outlined />
                     <!-- <ellipsis-outlined key="ellipsis" /> -->
                 </template>
-                <h1>{{item.name}}</h1>
-                <h1>{{item.description}}</h1>
+                <h1>{{ item.name }}</h1>
+                <h1>{{ item.description }}</h1>
                 <!-- <a-card-meta title="item.name" description="This is the description">
                     <template #avatar>
                         <a-avatar src="https://joeschmoe.io/api/v1/random" />

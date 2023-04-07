@@ -28,7 +28,7 @@ export class TfAppClient {
   static debug: boolean
   private readonly instance: AxiosInstance
 
-  constructor (opt: TfClientOptions) {
+  constructor(opt: TfClientOptions) {
     if (!opt.host) {
       // assert(false, 'host must be filled')
       console.log(false, 'host must be filled')
@@ -62,7 +62,8 @@ export class TfAppClient {
     this.instance = axios.create(config)
 
     this.instance.interceptors.request.use(function (config: AxiosRequestConfig): any {
-      if (config.headers && Object.keys(config.headers).length) { // 自定义了headers
+      if (config.headers && Object.keys(config.headers).length) {
+        // 自定义了headers
         config.headers = Object.assign(initHeaders, config.headers)
       } else {
         config.headers = initHeaders
@@ -70,13 +71,10 @@ export class TfAppClient {
       return config
     })
 
-    this.instance.interceptors.response.use(
-      TfAppClient.SucceedResponse,
-      TfAppClient.ErrResponse
-    )
+    this.instance.interceptors.response.use(TfAppClient.SucceedResponse, TfAppClient.ErrResponse)
   }
 
-  private static async SucceedResponse (response: AxiosResponse): Promise<any> {
+  private static async SucceedResponse(response: AxiosResponse): Promise<any> {
     const resp = response.data
     if (resp?.code !== 0) {
       console.log(`【tfReqClient Err】 => url: ${response.request.URL} --- msg: ${resp.message}`)
@@ -85,11 +83,15 @@ export class TfAppClient {
     return resp
   }
 
-  private static async ErrResponse (error: any): Promise<any> {
+  private static async ErrResponse(error: any): Promise<any> {
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      console.log(`【tfReqClient Err】 => url: ${error.response.config.url}\ndata: ${JSON.stringify(error.response.data)}`)
+      console.log(
+        `【tfReqClient Err】 => url: ${error.response.config.url}\ndata: ${JSON.stringify(
+          error.response.data
+        )}`
+      )
       if (TfAppClient.debug) {
         console.log('【tfReqClient Err】 => ', error.response) // debugMode
       }
@@ -112,23 +114,23 @@ export class TfAppClient {
     return Promise.reject(error)
   }
 
-  private async get (url: string, config?: AxiosRequestConfig): Promise<any> {
+  private async get(url: string, config?: AxiosRequestConfig): Promise<any> {
     return this.instance.get(url, config)
   }
 
-  private async post (url: string, data?: any, config?: AxiosRequestConfig): Promise<any> {
+  private async post(url: string, data?: any, config?: AxiosRequestConfig): Promise<any> {
     return this.instance.post(url, data, config)
   }
 
-  private async put (url: string, data?: any, config?: AxiosRequestConfig): Promise<any> {
+  private async put(url: string, data?: any, config?: AxiosRequestConfig): Promise<any> {
     return this.instance.put(url, data, config)
   }
 
-  private async delete (path: string, config?: AxiosRequestConfig): Promise<any> {
+  private async delete(path: string, config?: AxiosRequestConfig): Promise<any> {
     return this.instance.delete(path, config)
   }
 
-  private initHeaders (): any {
+  private initHeaders(): any {
     const commonHeaders = {
       Authorization: `Bearer ${this.token}`,
       'tf-client-type': 'ciri'
@@ -141,14 +143,14 @@ export class TfAppClient {
     return this.headers
   }
 
-  private genUrl (path: string, version = 'v1'): string {
+  private genUrl(path: string, version = 'v1'): string {
     const p = `/api/${version}${path}`
     // const p = `/api/${version}${path}` // 本地debug地址
     const url = new URL(p, this.host)
     return url.toString()
   }
 
-  public async register (username: string, password: string, email: string): Promise<RegisterResp> {
+  public async register(username: string, password: string, email: string): Promise<RegisterResp> {
     const url = this.genUrl('/user/register')
     const data = {
       username,
@@ -159,7 +161,7 @@ export class TfAppClient {
     return resp
   }
 
-  public async login (username: string, password: string): Promise<LoginResp> {
+  public async login(username: string, password: string): Promise<LoginResp> {
     const url = this.genUrl('/user/login')
     const data = {
       username,
@@ -169,14 +171,19 @@ export class TfAppClient {
     return resp
   }
 
-  public async appList (): Promise<AppListResp> {
+  public async appList(): Promise<AppListResp> {
     const url = this.genUrl('/app')
     const resp = await this.get(url)
     return resp
   }
 }
 
-export function newClient (token: string, keepalive = false, debug = false, headers?: any): TfAppClient {
+export function newClient(
+  token: string,
+  keepalive = false,
+  debug = false,
+  headers?: any
+): TfAppClient {
   const options: TfClientOptions = {
     token,
     // host: Config.RPA_HOST as string,
@@ -191,4 +198,3 @@ export function newClient (token: string, keepalive = false, debug = false, head
 
   return new TfAppClient(options)
 }
-
