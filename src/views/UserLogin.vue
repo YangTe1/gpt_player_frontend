@@ -36,6 +36,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
 
 interface FormState {
@@ -45,6 +46,7 @@ interface FormState {
 const client = newClient('')
 export default defineComponent({
   setup() {
+    const router = useRouter()
     const formState = reactive<FormState>({
       username: '',
       password: ''
@@ -55,6 +57,10 @@ export default defineComponent({
       console.log(data)
       if (data?.token) {
         localStorage.setItem('token', data.token)
+        router.push({
+          path: '/'
+        })
+        return
       }
     }
 

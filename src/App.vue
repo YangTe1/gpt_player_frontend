@@ -3,14 +3,22 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 // import Index from './components/IndexView.vue'
 // import HelloWorld from './components/HelloWorld.vue'
-const navs = [
-  { key: '1', label: '首页', name: 'index' },
-  { key: '2', label: '注册', name: 'register' },
-  { key: '3', label: '登录', name: 'login' }
-]
+const token = localStorage.getItem('token')
+let navs = []
+if (token) {
+  navs = [
+    { key: '1', label: '首页', name: 'index' },
+    { key: '2', label: '登录', name: 'login' }
+  ]
+} else {
+  navs = [
+    { key: '1', label: '首页', name: 'index' },
+    { key: '2', label: '注册', name: 'register' }
+  ]
+}
 const router = useRouter()
 const selectedKeys1 = ref<string[]>(['1'])
-const jump = (name:string) => {
+const jump = (name: string) => {
   router.push({
     name,
     query: {}
@@ -20,24 +28,24 @@ const jump = (name:string) => {
 
 <template>
   <!-- <a-layout> -->
-    <a-layout-header>
-      <div className="logo">Logo/标题</div>
-      <a-menu
-        v-model:selectedKeys="selectedKeys1"
-        theme="dark"
-        mode="horizontal"
-        :style="{ lineHeight: '64px' }"
-      >
-        <a-menu-item v-for="(nav) in navs" :key="nav.key" @click="jump(nav.name)">
-          {{ nav.label }}
-          <!-- <RouterLink :to="nav.router">{{ nav.label }}</RouterLink> -->
-        </a-menu-item>
-      </a-menu>
-    </a-layout-header>
-    <a-layout-content style="padding: 40px 50px; min-height: calc(100% - 64px);">
-      <RouterView />
-    </a-layout-content>
-    <!-- <a-layout-footer>Footer</a-layout-footer> -->
+  <a-layout-header>
+    <div className="logo">Logo/标题</div>
+    <a-menu
+      v-model:selectedKeys="selectedKeys1"
+      theme="dark"
+      mode="horizontal"
+      :style="{ lineHeight: '64px' }"
+    >
+      <a-menu-item v-for="nav in navs" :key="nav.key" @click="jump(nav.name)">
+        {{ nav.label }}
+        <!-- <RouterLink :to="nav.router">{{ nav.label }}</RouterLink> -->
+      </a-menu-item>
+    </a-menu>
+  </a-layout-header>
+  <a-layout-content style="padding: 40px 50px; min-height: calc(100% - 64px)">
+    <RouterView />
+  </a-layout-content>
+  <!-- <a-layout-footer>Footer</a-layout-footer> -->
   <!-- </a-layout> -->
 </template>
 

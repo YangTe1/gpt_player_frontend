@@ -10,7 +10,4 @@ import './assets/main.css'
 
 const app = createApp(App)
 
-app.use(createPinia())
-  .use(router)
-  .use(Antd)
-  .mount('#app')
+app.use(createPinia()).use(router).use(Antd).mount('#app')

@@ -48,6 +48,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
 
 interface FormState {
@@ -58,6 +59,7 @@ interface FormState {
 const client = newClient('')
 export default defineComponent({
   setup() {
+    const router = useRouter()
     const formState = reactive<FormState>({
       username: '',
       password: '',
@@ -67,6 +69,12 @@ export default defineComponent({
       console.log('Success:', values)
       const data = await client.register(values.username, values.password, values.email)
       console.log(data)
+      if (data?.ok) {
+        router.push({
+          path: '/login'
+        })
+        return
+      }
     }
 
     const onFinishFailed = (errorInfo: any) => {

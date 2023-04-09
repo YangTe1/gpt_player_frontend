@@ -17,7 +17,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
+
+const router = useRouter()
 export default defineComponent({
   setup() {
     const name = ref<string>('应用名称')
@@ -30,10 +33,10 @@ export default defineComponent({
     const client = newClient(token as string)
 
     const onSubmit = async () => {
-      const data = await client.appCreate(name.value, desc.value, prompt.value, example.value)
-      console.log(data)
-
-      return data
+      const app = await client.appCreate(name.value, desc.value, prompt.value, example.value)
+      console.log(app)
+      router.push({ path: `/app/${app.data.id}` })
+      return
     }
     return {
       prompt,

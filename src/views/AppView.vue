@@ -15,27 +15,34 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
+
+const router = useRouter()
+const token = localStorage.getItem('token')
 
 export default defineComponent({
   //   mounted() {
   //     console.log(this.$route.params.appId); // 打印当前路由信息
   //   },
-  setup() {
-    const route = useRoute()
-    console.log(route.params.appId)
-
-    // const token = localStorage.getItem('token')
-    // const client = newClient(token as string)
-    // const appData = await client.appDetail(appId)
-    const appData = {
-      name: 'nnn',
-      description: 'dddd',
-      id: 'iiii',
-      example: 'eeeee'
+  async setup() {
+    if (!token) {
+      router.push({ path: '/' })
     }
-    const example = ref<string>(appData.example)
+
+    const route = useRoute()
+    const appId = route.params.appId
+    console.log(appId)
+
+    const client = newClient(token as string)
+    const appData = await client.appDetail(appId as string)
+    // const appData = {
+    //   name: 'nnn',
+    //   description: 'dddd',
+    //   id: 'iiii',
+    //   example: 'eeeee'
+    // }
+    const example = ref<string>(appData.data.example)
 
     const onSubmit = async () => {
       // const data = await client.appCreate(name.value ,desc.value, prompt.value, example.value)
