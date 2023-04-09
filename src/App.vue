@@ -1,26 +1,57 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 // import Index from './components/IndexView.vue'
 // import HelloWorld from './components/HelloWorld.vue'
+const navs = [
+  { key: '1', label: '首页', name: 'index' },
+  { key: '2', label: '注册', name: 'register' },
+  { key: '3', label: '登录', name: 'login' }
+]
+const router = useRouter()
+const selectedKeys1 = ref<string[]>(['1'])
+const jump = (name:string) => {
+  router.push({
+    name,
+    query: {}
+  })
+}
 </script>
 
 <template>
-  <a-layout>
+  <!-- <a-layout> -->
     <a-layout-header>
-      <nav class="header-left">
-        <RouterLink to="/">首页</RouterLink>
-        <RouterLink to="/user/register">注册</RouterLink>
-        <RouterLink to="/user/login">登录</RouterLink>
-      </nav>
+      <div className="logo">Logo/标题</div>
+      <a-menu
+        v-model:selectedKeys="selectedKeys1"
+        theme="dark"
+        mode="horizontal"
+        :style="{ lineHeight: '64px' }"
+      >
+        <a-menu-item v-for="(nav) in navs" :key="nav.key" @click="jump(nav.name)">
+          {{ nav.label }}
+          <!-- <RouterLink :to="nav.router">{{ nav.label }}</RouterLink> -->
+        </a-menu-item>
+      </a-menu>
     </a-layout-header>
-    <a-layout-content>
+    <a-layout-content style="padding: 40px 50px; min-height: calc(100% - 64px);">
       <RouterView />
     </a-layout-content>
-    <a-layout-footer>Footer</a-layout-footer>
-  </a-layout>
+    <!-- <a-layout-footer>Footer</a-layout-footer> -->
+  <!-- </a-layout> -->
 </template>
 
-<style>
+<style lang="scss">
+.ant-layout-header .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  line-height: 31px;
+  color: #fff;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
 #components-layout-demo-basic .code-box-demo {
   text-align: center;
 }

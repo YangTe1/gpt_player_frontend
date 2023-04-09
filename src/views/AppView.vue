@@ -6,7 +6,7 @@
     <center>
       <h1>{{ appData.description }}</h1>
     </center>
-    <a-textarea v-model:value="example" showCount :maxlength="1500" :rows="4" />
+    <a-textarea v-model="example" showCount :maxlength="1500" :rows="4" />
     <a-button type="primary" @click="onSubmit">运行</a-button>
   </div>
   <div>

@@ -14,53 +14,52 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
+    const currentDate = new Date()
+    const items = [
+      {
+        id: 'i1',
+        name: 'n1',
+        description: 'd1',
+        example: 'e1'
+      },
+      {
+        id: 'i2',
+        name: 'n2',
+        description: 'd2',
+        example: 'e2'
+      },
+      {
+        id: 'i3',
+        name: 'n3',
+        description: 'd3',
+        example: 'e3'
+      },
+      {
+        id: 'i4',
+        name: 'n4',
+        description: 'd4',
+        example: 'e4'
+      }
+    ]
+
     const onClick = (itemId: string) => {
       router.push({
         path: `/app/${itemId}`
       })
       return
     }
-    return {
-      onClick
-    }
-  },
 
-  data() {
     return {
-      currentDate: new Date(),
-      items: [
-        {
-          id: 'i1',
-          name: 'n1',
-          description: 'd1',
-          example: 'e1'
-        },
-        {
-          id: 'i2',
-          name: 'n2',
-          description: 'd2',
-          example: 'e2'
-        },
-        {
-          id: 'i3',
-          name: 'n3',
-          description: 'd3',
-          example: 'e3'
-        },
-        {
-          id: 'i4',
-          name: 'n4',
-          description: 'd4',
-          example: 'e4'
-        }
-      ]
+      onClick,
+      currentDate,
+      items
     }
   }
 })
 </script>
 
 <template>
-  <a-row :gutter="16">
+  <a-row>
     <a-col :span="6" v-for="(item, index) in items" :key="item" :offset="index > 0 ? 1 : 1">
       <a-card hoverable style="width: 300px" @click="onClick(item.id)">
         <template #cover>

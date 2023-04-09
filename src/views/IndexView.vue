@@ -6,6 +6,5 @@ import Index from '../components/Index.vue'
   <div>
     <h1>This is an index page</h1>
   </div>
-
   <Index />
 </template>
