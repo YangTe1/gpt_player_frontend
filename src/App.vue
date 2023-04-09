@@ -6,15 +6,14 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <a-layout>
-    <a-layout-header>Header</a-layout-header>
+    <a-layout-header>
+      <nav class="header-left">
+        <RouterLink to="/">首页</RouterLink>
+        <RouterLink to="/user/register">注册</RouterLink>
+        <RouterLink to="/user/login">登录</RouterLink>
+      </nav>
+    </a-layout-header>
     <a-layout-content>
-      <div>
-        <h1>Content</h1>
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-        </nav>
-      </div>
       <RouterView />
     </a-layout-content>
     <a-layout-footer>Footer</a-layout-footer>

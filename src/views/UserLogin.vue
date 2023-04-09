@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <h1>用户注册</h1>
+    <h1>用户登录</h1>
   </div>
   <a-form
     :model="formState"
@@ -29,20 +29,8 @@
       <a-input-password v-model:value="formState.password" />
     </a-form-item>
 
-    <a-form-item
-      label="Email"
-      name="email"
-      :rules="[{ required: true, message: 'Please input your email!' }]"
-    >
-      <a-input v-model:value="formState.email" />
-    </a-form-item>
-
-    <!-- <a-form-item name="remember" :wrapper-col="{ offset: 8, span: 16 }">
-            <a-checkbox v-model:checked="formState.remember">记住密码</a-checkbox>
-        </a-form-item> -->
-
     <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-      <a-button type="primary" html-type="submit">注册</a-button>
+      <a-button type="primary" html-type="submit">登录</a-button>
     </a-form-item>
   </a-form>
 </template>
@@ -53,20 +41,21 @@ import { newClient } from '../utils/httpClient'
 interface FormState {
   username: string
   password: string
-  email: string
 }
 const client = newClient('')
 export default defineComponent({
   setup() {
     const formState = reactive<FormState>({
       username: '',
-      password: '',
-      email: ''
+      password: ''
     })
     const onFinish = async (values: any) => {
       console.log('Success:', values)
-      const data = await client.register(values.username, values.password, values.email)
+      const data = await client.login(values.username, values.password)
       console.log(data)
+      if (data?.token) {
+        localStorage.setItem('token', data.token)
+      }
     }
 
     const onFinishFailed = (errorInfo: any) => {

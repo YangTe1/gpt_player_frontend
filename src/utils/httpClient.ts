@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { stringifyQuery } from 'vue-router'
 // import assert from 'assert'
-import { AppListResp, LoginResp, RegisterResp } from './httpSchema'
+import type { AppListResp, LoginResp, RegisterResp, AppDetailResp } from './httpSchema'
 // import { tfAppData, tfAppListResp, tfAppListSimpleResp } from './transfSchema'
 // import Config from '../conf'
 // import { OrchestratorException } from '../exception/orchestrator'
@@ -131,9 +132,12 @@ export class TfAppClient {
   }
 
   private initHeaders(): any {
-    const commonHeaders = {
-      Authorization: `Bearer ${this.token}`,
-      'tf-client-type': 'ciri'
+    let commonHeaders = {}
+    if (this.token) {
+      commonHeaders = {
+        Authorization: `Bearer ${this.token}`
+        // 'tf-client-type': 'ciri'
+      }
     }
     if (this.headers) {
       Object.assign(this.headers, commonHeaders)
@@ -173,6 +177,29 @@ export class TfAppClient {
 
   public async appList(): Promise<AppListResp> {
     const url = this.genUrl('/app')
+    const resp = await this.get(url)
+    return resp
+  }
+
+  public async appCreate(
+    name: string,
+    desc: string,
+    prompt: string,
+    example: string
+  ): Promise<AppDetailResp> {
+    const url = this.genUrl('/app/create')
+    const data = {
+      name: name,
+      desc: desc,
+      prompt: prompt,
+      example: example
+    }
+    const resp = await this.post(url, data)
+    return resp
+  }
+
+  public async appDetail(appId: string): Promise<AppDetailResp> {
+    const url = this.genUrl('/app' + '/' + appId)
     const resp = await this.get(url)
     return resp
   }

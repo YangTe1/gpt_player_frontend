@@ -16,3 +16,6 @@ export interface IAppDetail {
 export interface AppListResp {
   data: IAppDetail[]
 }
+export interface AppDetailResp {
+  data: IAppDetail
+}
