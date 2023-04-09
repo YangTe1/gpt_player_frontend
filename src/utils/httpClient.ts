@@ -162,7 +162,7 @@ export class TfAppClient {
       email
     }
     const resp = await this.post(url, data)
-    return resp
+    return resp.data
   }
 
   public async login(username: string, password: string): Promise<LoginResp> {
@@ -172,7 +172,7 @@ export class TfAppClient {
       password
     }
     const resp = await this.post(url, data)
-    return resp
+    return resp.data
   }
 
   public async appList(): Promise<AppListResp> {

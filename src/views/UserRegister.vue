@@ -67,9 +67,9 @@ export default defineComponent({
     })
     const onFinish = async (values: any) => {
       console.log('Success:', values)
-      const data = await client.register(values.username, values.password, values.email)
-      console.log(data)
-      if (data?.ok) {
+      const resp = await client.register(values.username, values.password, values.email)
+      console.log(resp)
+      if (resp?.data.ok) {
         router.push({
           path: '/login'
         })
