@@ -6,7 +6,8 @@ import { newClient } from '../utils/httpClient'
 
 const token = ''
 const client = newClient(token)
-const appList = await client.appList()
+const appList = await client.appList(0, 20, '')
+console.log(appList)
 export default defineComponent({
   components: {
     LikeOutlined,
@@ -16,30 +17,30 @@ export default defineComponent({
     const router = useRouter()
     const currentDate = new Date()
     // const items = [
-    //   {
-    //     id: 'i1',
-    //     name: 'n1',
-    //     description: 'd1',
-    //     example: 'e1'
-    //   },
-    //   {
-    //     id: 'i2',
-    //     name: 'n2',
-    //     description: 'd2',
-    //     example: 'e2'
-    //   },
-    //   {
-    //     id: 'i3',
-    //     name: 'n3',
-    //     description: 'd3',
-    //     example: 'e3'
-    //   },
-    //   {
-    //     id: 'i4',
-    //     name: 'n4',
-    //     description: 'd4',
-    //     example: 'e4'
-    //   }
+    //     {
+    //         id: 'i1',
+    //         name: 'n1',
+    //         description: 'd1',
+    //         example: 'e1'
+    //     },
+    //     {
+    //         id: 'i2',
+    //         name: 'n2',
+    //         description: 'd2',
+    //         example: 'e2'
+    //     },
+    //     {
+    //         id: 'i3',
+    //         name: 'n3',
+    //         description: 'd3',
+    //         example: 'e3'
+    //     },
+    //     {
+    //         id: 'i4',
+    //         name: 'n4',
+    //         description: 'd4',
+    //         example: 'e4'
+    //     }
     // ]
 
     const onClick = (itemId: string) => {
@@ -53,6 +54,7 @@ export default defineComponent({
       onClick,
       currentDate,
       items: appList.data
+      // items: items
     }
   }
 })

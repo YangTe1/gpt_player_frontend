@@ -69,7 +69,7 @@ export default defineComponent({
       console.log('Success:', values)
       const resp = await client.register(values.username, values.password, values.email)
       console.log(resp)
-      if (resp?.data.ok) {
+      if (resp?.ok) {
         router.push({
           path: '/login'
         })

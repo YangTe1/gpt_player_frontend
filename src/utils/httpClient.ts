@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { stringifyQuery } from 'vue-router'
 // import assert from 'assert'
-import type { AppListResp, LoginResp, RegisterResp, AppDetailResp } from './httpSchema'
+import type { AppListResp, LoginResp, RegisterResp, AppDetailResp, IAppDetail } from './httpSchema'
 // import { tfAppData, tfAppListResp, tfAppListSimpleResp } from './transfSchema'
 // import Config from '../conf'
 // import { OrchestratorException } from '../exception/orchestrator'
@@ -34,7 +33,7 @@ export class TfAppClient {
       // assert(false, 'host must be filled')
       console.log(false, 'host must be filled')
     }
-    // this.host = opt.host
+    this.host = opt.host
     // if (!opt.token) {
     //   assert(false, 'token must be filled')
     // }
@@ -175,9 +174,17 @@ export class TfAppClient {
     return resp.data
   }
 
-  public async appList(): Promise<AppListResp> {
+  public async appList(pageNum: number, pageSize: number, query: string): Promise<AppListResp> {
     const url = this.genUrl('/app')
-    const resp = await this.get(url)
+    console.log(`url:    ${url}`)
+
+    const resp = await this.get(url, {
+      params: {
+        page_num: pageNum,
+        page_size: pageSize,
+        query: query
+      }
+    })
     return resp
   }
 
@@ -187,21 +194,21 @@ export class TfAppClient {
     prompt: string,
     example: string
   ): Promise<AppDetailResp> {
-    const url = this.genUrl('/app/create')
+    const url = this.genUrl('/app')
     const data = {
       name: name,
-      desc: desc,
-      prompt: prompt,
+      description: desc,
+      prompt_text: prompt,
       example: example
     }
     const resp = await this.post(url, data)
     return resp
   }
 
-  public async appDetail(appId: string): Promise<AppDetailResp> {
+  public async appDetail(appId: string): Promise<IAppDetail> {
     const url = this.genUrl('/app' + '/' + appId)
     const resp = await this.get(url)
-    return resp
+    return resp.data
   }
 }
 

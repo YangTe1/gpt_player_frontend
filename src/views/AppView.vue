@@ -10,32 +10,39 @@
     <a-button type="primary" @click="onSubmit">运行</a-button>
   </div>
   <div>
-    <center><h1>这是回复</h1></center>
+    <center>
+      <h1>这是回复</h1>
+    </center>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
 
 const router = useRouter()
-const token = localStorage.getItem('token')
 
 export default defineComponent({
   //   mounted() {
   //     console.log(this.$route.params.appId); // 打印当前路由信息
   //   },
-  async setup() {
+  setup() {
+    const token = localStorage.getItem('token')
+    console.log(token)
     if (!token) {
       router.push({ path: '/' })
     }
-
+    console.log('1111111111111111111')
+    const appData = ref<any>({})
     const route = useRoute()
     const appId = route.params.appId
     console.log(appId)
+    // onBeforeMount(async () => {
+    //     const client = newClient(token as string)
+    //     appData = await client.appDetail(appId as string)
+    // })
+    console.log(`data: ${appData}`)
 
-    const client = newClient(token as string)
-    const appData = await client.appDetail(appId as string)
     // const appData = {
     //   name: 'nnn',
     //   description: 'dddd',

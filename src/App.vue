@@ -8,12 +8,13 @@ let navs = []
 if (token) {
   navs = [
     { key: '1', label: '首页', name: 'index' },
-    { key: '2', label: '登录', name: 'login' }
+    { key: '2', label: '退出登录', name: 'logout' }
   ]
 } else {
   navs = [
     { key: '1', label: '首页', name: 'index' },
-    { key: '2', label: '注册', name: 'register' }
+    { key: '2', label: '注册', name: 'register' },
+    { key: '2', label: '登录', name: 'login' }
   ]
 }
 const router = useRouter()

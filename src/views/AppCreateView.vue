@@ -20,16 +20,19 @@ import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
 
-const router = useRouter()
 export default defineComponent({
   setup() {
+    const router = useRouter()
+    const token = localStorage.getItem('token')
+    if (!token) {
+      router.push({ path: '/login' })
+    }
     const name = ref<string>('应用名称')
     const prompt = ref<string>(
       '现在你是一个训练师，向你的机器人预设指令。例如：你现在是一个普通的打工人，拒绝老板pua，把下面的理由用委婉的角度重写一下'
     )
     const example = ref<string>('这事我不做')
     const desc = ref<string>('打工人小助手，拒绝pua')
-    const token = localStorage.getItem('token')
     const client = newClient(token as string)
 
     const onSubmit = async () => {
@@ -39,6 +42,7 @@ export default defineComponent({
       return
     }
     return {
+      name,
       prompt,
       example,
       desc,
