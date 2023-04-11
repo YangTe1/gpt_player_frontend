@@ -6,61 +6,64 @@
     <center>
       <h1>{{ appData.description }}</h1>
     </center>
-    <a-textarea v-model="example" showCount :maxlength="1500" :rows="4" />
-    <a-button type="primary" @click="onSubmit">运行</a-button>
+    <a-textarea v-model:value="example" showCount :maxlength="1500" :rows="4" />
+    <p>
+      <a-button type="primary" @click="onSubmit" style="float: right; margin: 10px">运行</a-button>
+    </p>
   </div>
   <div>
-    <center>
-      <h1>这是回复</h1>
-    </center>
+    <h1>{{ responseMsg }}</h1>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onBeforeMount } from 'vue'
+import { defineComponent, reactive, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
 
 const router = useRouter()
 
 export default defineComponent({
-  //   mounted() {
-  //     console.log(this.$route.params.appId); // 打印当前路由信息
-  //   },
   setup() {
+    const example = ref<string>('')
+    const responseMsg = ref<string>('')
     const token = localStorage.getItem('token')
     console.log(token)
     if (!token) {
       router.push({ path: '/' })
     }
-    console.log('1111111111111111111')
-    const appData = ref<any>({})
+    const appData = reactive({
+      id: '',
+      name: '',
+      description: '',
+      example: ''
+    })
     const route = useRoute()
     const appId = route.params.appId
     console.log(appId)
-    // onBeforeMount(async () => {
-    //     const client = newClient(token as string)
-    //     appData = await client.appDetail(appId as string)
-    // })
-    console.log(`data: ${appData}`)
-
-    // const appData = {
-    //   name: 'nnn',
-    //   description: 'dddd',
-    //   id: 'iiii',
-    //   example: 'eeeee'
-    // }
-    const example = ref<string>(appData.data.example)
+    onMounted(async () => {
+      const client = newClient(token as string)
+      const resp = await client.appDetail(appId as string)
+      // console.log(`data: ${JSON.stringify(resp)}`)
+      appData.example = resp.example
+      appData.name = resp.name
+      appData.description = resp.description
+      appData.id = resp.id
+      example.value = resp.example
+      console.log(`data: ${JSON.stringify(appData)}`)
+    })
 
     const onSubmit = async () => {
-      // const data = await client.appCreate(name.value ,desc.value, prompt.value, example.value)
       console.log('运行了')
-      console.log(example.value)
-
+      const client = newClient(token as string)
+      const data = await client.chat(appData.id, example.value)
+      console.log('data: ', data)
+      responseMsg.value = data.message
       return
     }
     return {
-      appData,
       example,
+      responseMsg,
+      appData,
       onSubmit
     }
   }

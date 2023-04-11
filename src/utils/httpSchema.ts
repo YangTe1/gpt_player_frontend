@@ -19,3 +19,16 @@ export interface AppListResp {
 export interface AppDetailResp {
   data: IAppDetail
 }
+
+export interface IChat {
+  id: string
+  sid: string
+  app_id: string
+  user_id: string
+  user_name: string
+  message: string
+  chatter: string
+}
+export interface ChatResp {
+  data: IChat
+}

@@ -1,6 +1,13 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 // import assert from 'assert'
-import type { AppListResp, LoginResp, RegisterResp, AppDetailResp, IAppDetail } from './httpSchema'
+import type {
+  AppListResp,
+  LoginResp,
+  RegisterResp,
+  AppDetailResp,
+  IAppDetail,
+  IChat
+} from './httpSchema'
 // import { tfAppData, tfAppListResp, tfAppListSimpleResp } from './transfSchema'
 // import Config from '../conf'
 // import { OrchestratorException } from '../exception/orchestrator'
@@ -44,7 +51,7 @@ export class TfAppClient {
     if (opt.headers) {
       this.headers = opt.headers
     }
-    const initHeaders = this.initHeaders()
+    // const initHeaders = this.initHeaders()
 
     TfAppClient.debug = opt.debug
 
@@ -53,7 +60,9 @@ export class TfAppClient {
       // httpsAgent: globalAgent,
       maxContentLength: Infinity,
       maxBodyLength: Infinity
+      // withCredentials: true
     }
+    const token = this.token
 
     // if (opt.keepalive === true) {
     //   config.httpAgent = new http.Agent({ keepAlive: true })
@@ -62,12 +71,19 @@ export class TfAppClient {
     this.instance = axios.create(config)
 
     this.instance.interceptors.request.use(function (config: AxiosRequestConfig): any {
-      if (config.headers && Object.keys(config.headers).length) {
-        // 自定义了headers
-        config.headers = Object.assign(initHeaders, config.headers)
-      } else {
-        config.headers = initHeaders
+      // if (config.headers && Object.keys(config.headers).length) {
+      //   // 自定义了headers
+      //   config.headers = Object.assign(initHeaders, config.headers)
+      // } else {
+      //   config.headers = initHeaders
+      // }
+      // console.log(config)
+      if (config.headers && token) {
+        Object.assign(config.headers, {
+          Authorization: `Bearer ${token}`
+        })
       }
+
       return config
     })
 
@@ -206,8 +222,20 @@ export class TfAppClient {
   }
 
   public async appDetail(appId: string): Promise<IAppDetail> {
-    const url = this.genUrl('/app' + '/' + appId)
+    const url = this.genUrl(`/app/${appId}`)
+    console.log(url)
+
     const resp = await this.get(url)
+    return resp.data
+  }
+
+  public async chat(appId: string, msg: string): Promise<IChat> {
+    const url = this.genUrl('/chat')
+    const data = {
+      app_id: appId,
+      query: msg
+    }
+    const resp = await this.post(url, data)
     return resp.data
   }
 }
