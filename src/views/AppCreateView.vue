@@ -1,19 +1,24 @@
 <template>
-  <div>
-    <h1>创建你的应用</h1>
+  <div class="parent-container">
+    <div class="child-container">
+      <p class="text-lg">创建你的应用</p>
+      <p class="text-md">应用名称</p>
+      <a-input v-model:value="name" placeholder="" />
+      <p class="text-md">应用描述</p>
+      <a-textarea v-model:value="desc" showCount :maxlength="100" />
+      <p class="text-md">指令</p>
+      <a-textarea v-model:value="prompt" showCount :maxlength="1500" />
+      <p class="text-md">示例输入</p>
+      <a-textarea v-model:value="example" placeholder="Basic usage" :rows="4" />
+      <a-button type="primary" @click="onCancel" style="float: right; margin: 5px; margin-top: 10px"
+        >取消</a-button
+      >
+      <!-- <a-button type="primary" @click="onTest">测试</a-button> -->
+      <a-button type="primary" @click="onSubmit" style="float: right; margin: 5px; margin-top: 10px"
+        >创建</a-button
+      >
+    </div>
   </div>
-  <span>应用名称</span>
-  <a-input v-model:value="name" placeholder="" />
-  <span>应用描述</span>
-  <a-textarea v-model:value="desc" showCount :maxlength="100" />
-  <span>指令</span>
-  <a-textarea v-model:value="prompt" showCount :maxlength="1500" />
-  <span>示例输入</span>
-  <a-textarea v-model:value="example" placeholder="Basic usage" :rows="4" />
-
-  <a-button type="primary" @click="onCancel">取消</a-button>
-  <!-- <a-button type="primary" @click="onTest">测试</a-button> -->
-  <a-button type="primary" @click="onSubmit">创建</a-button>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
@@ -41,13 +46,36 @@ export default defineComponent({
       router.push({ path: `/app/${app.data.id}` })
       return
     }
+
+    const onCancel = async () => {
+      router.push({ path: '/' })
+      return
+    }
     return {
       name,
       prompt,
       example,
       desc,
-      onSubmit
+      onSubmit,
+      onCancel
     }
   }
 })
 </script>
+<style>
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.child-container {
+  width: 30%;
+  height: 50%;
+}
+
+.text-md {
+  padding-top: 15px;
+  margin: 10px;
+}
+</style>

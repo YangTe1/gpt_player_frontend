@@ -26,16 +26,15 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>This is an index page</h1>
-    <center>
-      <a-button type="primary" shape="circle" @click="onClick">
-        <template #icon>
-          <PlusCircleOutlined />
-        </template>
-      </a-button>
-      <h3>创建应用</h3>
-    </center>
+  <div class="text-center" style="min-height: 200px; margin-bottom: 100px">
+    <p class="text-hg">GPT-IN-LIFE</p>
+    <p class="text-lg">使用现有的应用，或者花几秒钟来创建你的应用</p>
+    <a-button type="primary" shape="round" @click="onClick">
+      <template #icon>
+        <PlusCircleOutlined />
+      </template>
+      添加应用
+    </a-button>
   </div>
   <Index />
 </template>

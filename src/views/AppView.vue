@@ -1,18 +1,27 @@
 <template>
-  <div>
-    <center>
-      <h1>{{ appData.name }}</h1>
-    </center>
-    <center>
-      <h1>{{ appData.description }}</h1>
-    </center>
-    <a-textarea v-model:value="example" showCount :maxlength="1500" :rows="4" />
-    <p>
-      <a-button type="primary" @click="onSubmit" style="float: right; margin: 10px">运行</a-button>
-    </p>
+  <div class="parent-container">
+    <div class="child-container">
+      <div class="text-center">
+        <p class="text-lg">{{ appData.name }}</p>
+        <p class="text-md">{{ appData.description }}</p>
+
+        <a-textarea v-model:value="example" showCount :maxlength="1500" :rows="4" />
+        <a-button
+          type="primary"
+          @click="onSubmit"
+          style="float: right; margin: 5px; margin-top: 30px"
+          >运行</a-button
+        >
+      </div>
+    </div>
   </div>
-  <div>
-    <h1>{{ responseMsg }}</h1>
+  <div class="parent-container">
+    <div class="box2">
+      <a-spin v-if="isLoading" tip="正在输入...">
+        <a-alert message="正在输入"></a-alert>
+      </a-spin>
+      <p class="text-lg" v-else>{{ responseMsg }}</p>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -25,6 +34,7 @@ const router = useRouter()
 export default defineComponent({
   setup() {
     const example = ref<string>('')
+    const isLoading = ref<boolean>(false)
     const responseMsg = ref<string>('')
     const token = localStorage.getItem('token')
     console.log(token)
@@ -53,14 +63,17 @@ export default defineComponent({
     })
 
     const onSubmit = async () => {
+      isLoading.value = true
       console.log('运行了')
       const client = newClient(token as string)
       const data = await client.chat(appData.id, example.value)
       console.log('data: ', data)
+      isLoading.value = false
       responseMsg.value = data.message
       return
     }
     return {
+      isLoading,
       example,
       responseMsg,
       appData,
@@ -69,3 +82,28 @@ export default defineComponent({
   }
 })
 </script>
+<style>
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  margin-bottom: 20px;
+}
+
+.child-container {
+  width: 30%;
+  height: 50%;
+}
+
+.text-md {
+  padding: 25px;
+  margin: 10px;
+}
+
+.box2 {
+  width: 30%;
+  margin-top: 100px;
+  text-align: center;
+}
+</style>

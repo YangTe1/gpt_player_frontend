@@ -30,7 +30,9 @@ const jump = (name: string) => {
 <template>
   <!-- <a-layout> -->
   <a-layout-header>
-    <div className="logo">Logo/标题</div>
+    <div className="logo">
+      <p class="text-sm">GPT-IN-LIFE</p>
+    </div>
     <a-menu
       v-model:selectedKeys="selectedKeys1"
       theme="dark"
@@ -38,12 +40,13 @@ const jump = (name: string) => {
       :style="{ lineHeight: '64px' }"
     >
       <a-menu-item v-for="nav in navs" :key="nav.key" @click="jump(nav.name)">
-        {{ nav.label }}
+        <span class="text-sm">{{ nav.label }}</span>
+
         <!-- <RouterLink :to="nav.router">{{ nav.label }}</RouterLink> -->
       </a-menu-item>
     </a-menu>
   </a-layout-header>
-  <a-layout-content style="padding: 40px 50px; min-height: calc(100% - 64px)">
+  <a-layout-content style="padding-top: 50px; padding-bottom: 50px; min-height: calc(100% - 64px)">
     <RouterView />
   </a-layout-content>
   <!-- <a-layout-footer>Footer</a-layout-footer> -->
@@ -58,7 +61,8 @@ const jump = (name: string) => {
   line-height: 31px;
   color: #fff;
   margin: 16px 24px 16px 0;
-  background: rgba(255, 255, 255, 0.3);
+  /* background: rgba(255, 255, 255, 0.3); */
+  /* background: #c1cbd7; */
 }
 
 #components-layout-demo-basic .code-box-demo {
@@ -68,11 +72,13 @@ const jump = (name: string) => {
 #components-layout-demo-basic .ant-layout-header,
 #components-layout-demo-basic .ant-layout-footer {
   color: #fff;
-  background: #7dbcea;
+  /* background: #7dbcea; */
+  background: #c1cbd7;
 }
 
 [data-theme='dark'] #components-layout-demo-basic .ant-layout-header {
   background: #6aa0c7;
+  /* background: #c1cbd7; */
 }
 
 [data-theme='dark'] #components-layout-demo-basic .ant-layout-footer {
@@ -83,15 +89,15 @@ const jump = (name: string) => {
   line-height: 1.5;
 }
 
-#components-layout-demo-basic .ant-layout-sider {
-  color: #fff;
-  line-height: 120px;
-  background: #3ba0e9;
-}
+/* #components-layout-demo-basic .ant-layout-sider {
+        color: #fff;
+        line-height: 120px;
+        background: #3ba0e9;
+    }
 
-[data-theme='dark'] #components-layout-demo-basic .ant-layout-sider {
-  background: #3499ec;
-}
+    [data-theme='dark'] #components-layout-demo-basic .ant-layout-sider {
+        background: #3499ec;
+    } */
 
 #components-layout-demo-basic .ant-layout-content {
   min-height: 120px;
@@ -100,9 +106,9 @@ const jump = (name: string) => {
   background: rgba(16, 142, 233, 1);
 }
 
-[data-theme='dark'] #components-layout-demo-basic .ant-layout-content {
-  background: #107bcb;
-}
+/* [data-theme='dark'] #components-layout-demo-basic .ant-layout-content {
+        background: #107bcb;
+    } */
 
 #components-layout-demo-basic > .code-box-demo > .ant-layout + .ant-layout {
   margin-top: 48px;

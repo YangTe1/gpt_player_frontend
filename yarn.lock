@@ -1222,7 +1222,7 @@
   "resolved" "https://registry.npmmirror.com/convert-source-map/-/convert-source-map-1.9.0.tgz"
   "version" "1.9.0"
 
-"core-js@^3.15.1":
+"core-js@^3.15.1", "core-js@^3.6.5":
   "integrity" "sha512-hQotSSARoNh1mYPi9O2YaWeiq/cEB95kOrFb4NCrO4RIFt1qqNpKsaE+vy/L3oiqvND5cThqXzUU3r9F7Efztg=="
   "resolved" "https://registry.npmmirror.com/core-js/-/core-js-3.30.0.tgz"
   "version" "3.30.0"
@@ -2976,6 +2976,11 @@
     "for-each" "^0.3.3"
     "is-typed-array" "^1.1.9"
 
+"typed.js@^2.0.12":
+  "integrity" "sha512-kQNtvm6+dEcUc5sdskEgV17rsdvimQNsDRHnp8PasBY85dYqVoo4TCanakSkfherMN+lZEko5ccMMKJpuR42Fw=="
+  "resolved" "https://registry.npmmirror.com/typed.js/-/typed.js-2.0.15.tgz"
+  "version" "2.0.15"
+
 "typescript@*", "typescript@>=2.7", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=4.4.4", "typescript@~4.8.4":
   "integrity" "sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ=="
   "resolved" "https://registry.npmmirror.com/typescript/-/typescript-4.8.4.tgz"
@@ -3084,7 +3089,7 @@
   dependencies:
     "is-plain-object" "3.0.1"
 
-"vue@^2.6.14 || ^3.2.0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.47", "vue@>=3.0.3", "vue@>=3.2.0", "vue@3.2.47":
+"vue@^2.6.14 || ^3.2.0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.1.4", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.47", "vue@>=3.0.3", "vue@>=3.2.0", "vue@3.2.47":
   "integrity" "sha512-60188y/9Dc9WVrAZeUVSDxRQOZ+z+y5nO2ts9jWXSTkMvayiWxCWOWtBQoYjLeccfXkiiPZWAHcV+WTPhkqJHQ=="
   "resolved" "https://registry.npmmirror.com/vue/-/vue-3.2.47.tgz"
   "version" "3.2.47"
@@ -3094,6 +3099,15 @@
     "@vue/runtime-dom" "3.2.47"
     "@vue/server-renderer" "3.2.47"
     "@vue/shared" "3.2.47"
+
+"vue3typed@^0.1.5":
+  "integrity" "sha512-hJ20Nvuze8uYlAwJj9Q3vCYxQ03ePvyvLIl01XdhIQzyuP0eqPd9n7/9w872LE1skRVC/n4l/YTAnSmymImtpw=="
+  "resolved" "https://registry.npmmirror.com/vue3typed/-/vue3typed-0.1.5.tgz"
+  "version" "0.1.5"
+  dependencies:
+    "core-js" "^3.6.5"
+    "typed.js" "^2.0.12"
+    "vue" "^3.1.4"
 
 "warning@^4.0.0":
   "integrity" "sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w=="

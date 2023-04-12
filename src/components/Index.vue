@@ -1,5 +1,5 @@
 <script lang="ts">
-import { LikeOutlined, MessageOutlined } from '@ant-design/icons-vue'
+import { LikeOutlined, MessageOutlined, MehTwoTone } from '@ant-design/icons-vue'
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
@@ -11,37 +11,12 @@ console.log(appList)
 export default defineComponent({
   components: {
     LikeOutlined,
-    MessageOutlined
+    MessageOutlined,
+    MehTwoTone
   },
   setup() {
     const router = useRouter()
     const currentDate = new Date()
-    // const items = [
-    //     {
-    //         id: 'i1',
-    //         name: 'n1',
-    //         description: 'd1',
-    //         example: 'e1'
-    //     },
-    //     {
-    //         id: 'i2',
-    //         name: 'n2',
-    //         description: 'd2',
-    //         example: 'e2'
-    //     },
-    //     {
-    //         id: 'i3',
-    //         name: 'n3',
-    //         description: 'd3',
-    //         example: 'e3'
-    //     },
-    //     {
-    //         id: 'i4',
-    //         name: 'n4',
-    //         description: 'd4',
-    //         example: 'e4'
-    //     }
-    // ]
 
     const onClick = (itemId: string) => {
       router.push({
@@ -49,40 +24,68 @@ export default defineComponent({
       })
       return
     }
+    function calcCardHeight() {
+      const screenWidth = window.innerWidth
+      console.log('screenWidth')
+      console.log(screenWidth)
+      if (screenWidth >= 1200) {
+        return 360
+      } else if (screenWidth >= 768) {
+        return 280
+      } else {
+        return 200
+      }
+    }
+    const cardHeight = calcCardHeight()
 
     return {
       onClick,
       currentDate,
-      items: appList.data
-      // items: items
+      items: appList.data,
+      cardHeight
     }
   }
 })
 </script>
 
 <template>
-  <a-row>
-    <a-col :span="6" v-for="(item, index) in items" :key="item" :offset="index > 0 ? 1 : 1">
-      <a-card hoverable style="width: 300px" @click="onClick(item.id)">
-        <template #cover>
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          />
-        </template>
-        <template #actions>
-          <like-outlined key="like" />
-          <message-outlined key="run" />
-          <!-- <ellipsis-outlined key="ellipsis" /> -->
-        </template>
-        <h1>{{ item.name }}</h1>
-        <h1>{{ item.description }}</h1>
-        <!-- <a-card-meta title="item.name" description="This is the description">
-                    <template #avatar>
-                        <a-avatar src="https://joeschmoe.io/api/v1/random" />
-                    </template>
-                </a-card-meta> -->
-      </a-card>
-    </a-col>
-  </a-row>
+  <div style="background-color: #ececea; padding-top: 50px">
+    <a-row>
+      <a-col :span="4" v-for="(item, index) in items" :key="item" :offset="index % 4 == 0 ? 3 : 1">
+        <div class="text-center" style="margin-bottom: 20px; background-color: #f6f6f6">
+          <a-card
+            hoverable
+            :style="{ width: '100%', height: cardHeight + 'px', background: '#f6f6f6' }"
+            @click="onClick(item.id)"
+          >
+            <template #cover>
+              <meh-two-tone
+                :style="{ fontSize: '50px', marginTop: '50px', marginBottom: '30px' }"
+              />
+            </template>
+
+            <p class="text-lg">{{ item.name }}</p>
+            <p class="text-sm">{{ item.description }}</p>
+            <template class="icon-bottom" #actions>
+              <like-outlined key="like" />
+              <message-outlined key="run" />
+            </template>
+          </a-card>
+        </div>
+      </a-col>
+    </a-row>
+  </div>
 </template>
+
+<style>
+.ant-card-actions {
+  background: #f6f6f6;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+}
+</style>

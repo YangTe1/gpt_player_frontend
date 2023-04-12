@@ -119,7 +119,7 @@ export class TfAppClient {
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js
-      console.log(`【tfReqClient Err】 => url: ${error.request.res.responseUrl}`)
+      console.log(`【tfReqClient Err】 => url: ${error.request.res}`)
       if (TfAppClient.debug) {
         console.log('【tfReqClient Err】 => ', error.request) // debugMode
       }
@@ -250,7 +250,7 @@ export function newClient(
     token,
     // host: Config.RPA_HOST as string,
     host: 'http://192.168.3.128:8000/', // 本地debug地址
-    timeout: 10000,
+    timeout: 200 * 1000,
     keepalive,
     debug
   }
