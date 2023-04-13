@@ -106,12 +106,12 @@ export default defineComponent({
       const client = newClient(token as string)
       let data: IChat
       try {
-        // data = await client.chat(appData.id, example.value)
-        // console.log('data: ', data)
+        data = await client.chat(appData.id, example.value)
+        console.log('data: ', data)
         isLoading.value = false
-        // responseMsg.value = data.message
-        responseMsg.value =
-          '很抱歉，我不能完成这个任务。因为这句话并没有委婉的表达方式。可以尝试以下的重写方式：\n\n- 很抱歉，我目前无法承担这项任务。\n- 我不确定我是否有能力完成这个任务。\n- 我需要更多的时间来考虑这个问题。\n- 我希望你能理解我现在的处境，我暂时无法应对这项任务。\n- 我需要更多的信息和资源来完成这个任务。'
+        responseMsg.value = data.message
+        // responseMsg.value =
+        //   '很抱歉，我不能完成这个任务。因为这句话并没有委婉的表达方式。可以尝试以下的重写方式：\n\n- 很抱歉，我目前无法承担这项任务。\n- 我不确定我是否有能力完成这个任务。\n- 我需要更多的时间来考虑这个问题。\n- 我希望你能理解我现在的处境，我暂时无法应对这项任务。\n- 我需要更多的信息和资源来完成这个任务。'
       } catch (err) {
         if (err?.msg) {
           message.error(`发送失败，请稍后重试${err.msg}`)
