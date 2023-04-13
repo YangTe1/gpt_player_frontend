@@ -1,6 +1,6 @@
 <script lang="ts">
 import { LikeOutlined, MessageOutlined, MehTwoTone } from '@ant-design/icons-vue'
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
 import { message } from 'ant-design-vue'
@@ -15,24 +15,7 @@ export default defineComponent({
     const router = useRouter()
     const token = ''
     const client = newClient(token)
-    let items = reactive([])
-    client
-      .appList(0, 20, '')
-      .then((appList) => {
-        for (const app of appList.data) {
-          items.push(app)
-        }
-        console.log(items)
-      })
-      .catch((err) => {
-        console.log(err)
-        if (err?.msg) {
-          message.error(`服务器异常，请稍后刷新重试: ${err.msg}`)
-        } else {
-          message.error(`服务器异常，请稍后刷新重试`)
-        }
-        return
-      })
+    let items = ref([])
 
     const onClick = (itemId: string) => {
       router.push({
@@ -54,17 +37,57 @@ export default defineComponent({
     }
     const cardHeight = calcCardHeight()
 
+    const pageIndex = reactive({
+      value: 1,
+      onChange: (newValue) => {
+        pageIndex.value = newValue
+      }
+    })
+    const pageSize = ref(12)
+
+    const loadData = async () => {
+      console.log(`pageIndex: ${pageIndex.value}`)
+      console.log(`pageSize: ${pageSize.value}`)
+      try {
+        const token = ''
+        const client = newClient(token)
+        const appList = await client.appList(pageIndex.value - 1, pageSize.value, '')
+        console.log(appList.data)
+        items.value = appList.data || []
+      } catch (err) {
+        console.log(err)
+        if (err?.msg) {
+          message.error(`服务器异常，请稍后刷新重试: ${err.msg}`)
+        } else {
+          message.error(`服务器异常，请稍后刷新重试`)
+        }
+        return
+      }
+    }
+
+    onMounted(loadData)
+
+    const pagination = computed(() => ({
+      current: pageIndex.value,
+      pageSize: pageSize.value
+    }))
+
     return {
       onClick,
       items,
-      cardHeight
+      cardHeight,
+
+      pageIndex,
+      pageSize,
+      loadData,
+      pagination
     }
   }
 })
 </script>
 
 <template>
-  <div style="background-color: #ececea; padding-top: 50px">
+  <div style="background-color: #ececea; padding-top: 50px; padding-bottom: 50px">
     <a-row>
       <a-col :span="4" v-for="(item, index) in items" :key="item" :offset="index % 4 == 0 ? 3 : 1">
         <div class="text-center" style="margin-bottom: 20px; background-color: #f6f6f6">
@@ -89,6 +112,14 @@ export default defineComponent({
         </div>
       </a-col>
     </a-row>
+    <div>
+      <a-pagination
+        v-model:current="pageIndex.value"
+        :pageSize="pageSize"
+        :total="50"
+        @change="loadData"
+      />
+    </div>
   </div>
 </template>
 
@@ -102,5 +133,10 @@ export default defineComponent({
   justify-content: space-around;
   align-items: center;
   padding: 5px;
+}
+
+.ant-pagination {
+  float: right;
+  padding-right: 50px;
 }
 </style>

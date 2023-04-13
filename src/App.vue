@@ -46,10 +46,15 @@ const jump = (name: string) => {
       </a-menu-item>
     </a-menu>
   </a-layout-header>
-  <a-layout-content style="padding-top: 50px; padding-bottom: 50px; min-height: calc(100% - 64px)">
+  <a-layout-content style="padding-top: 50px; min-height: calc(100% - 64px)">
     <RouterView />
   </a-layout-content>
-  <!-- <a-layout-footer>Footer</a-layout-footer> -->
+  <a-layout-footer>
+    <div class="text-center">
+      <p class="text-md">有bug或建议欢迎发送邮件</p>
+      <span class="text-md">manbugv@163.com</span>
+    </div>
+  </a-layout-footer>
   <!-- </a-layout> -->
 </template>
 
@@ -112,5 +117,10 @@ const jump = (name: string) => {
 
 #components-layout-demo-basic > .code-box-demo > .ant-layout + .ant-layout {
   margin-top: 48px;
+}
+
+.ant-layout-footer {
+  background: #f6f6f6;
+  min-height: 120px;
 }
 </style>

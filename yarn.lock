@@ -502,6 +502,24 @@
   "resolved" "https://registry.npmmirror.com/@types/json-schema/-/json-schema-7.0.11.tgz"
   "version" "7.0.11"
 
+"@types/linkify-it@*":
+  "integrity" "sha512-HZQYqbiFVWufzCwexrvh694SOim8z2d+xJl5UNamcvQFejLY/2YUtzXHYi3cHdI7PMlS8ejH2slRAOJQ32aNbA=="
+  "resolved" "https://registry.npmmirror.com/@types/linkify-it/-/linkify-it-3.0.2.tgz"
+  "version" "3.0.2"
+
+"@types/markdown-it@*":
+  "integrity" "sha512-GKMHFfv3458yYy+v/N8gjufHO6MSZKCOXpZc5GXIWWy8uldwfmPn98vp81gZ5f9SVw8YYBctgfJ22a2d7AOMeQ=="
+  "resolved" "https://registry.npmmirror.com/@types/markdown-it/-/markdown-it-12.2.3.tgz"
+  "version" "12.2.3"
+  dependencies:
+    "@types/linkify-it" "*"
+    "@types/mdurl" "*"
+
+"@types/mdurl@*":
+  "integrity" "sha512-eC4U9MlIcu2q0KQmXszyn5Akca/0jrQmwDRgpAMJai7qBWq4amIQhZyNau4VYGtCeALvW1/NtjzJJ567aZxfKA=="
+  "resolved" "https://registry.npmmirror.com/@types/mdurl/-/mdurl-1.0.2.tgz"
+  "version" "1.0.2"
+
 "@types/node@*", "@types/node@^18.15.11", "@types/node@>= 14":
   "integrity" "sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q=="
   "resolved" "https://registry.npmmirror.com/@types/node/-/node-18.15.11.tgz"
@@ -1222,7 +1240,7 @@
   "resolved" "https://registry.npmmirror.com/convert-source-map/-/convert-source-map-1.9.0.tgz"
   "version" "1.9.0"
 
-"core-js@^3.15.1", "core-js@^3.6.5":
+"core-js@^3.15.1":
   "integrity" "sha512-hQotSSARoNh1mYPi9O2YaWeiq/cEB95kOrFb4NCrO4RIFt1qqNpKsaE+vy/L3oiqvND5cThqXzUU3r9F7Efztg=="
   "resolved" "https://registry.npmmirror.com/core-js/-/core-js-3.30.0.tgz"
   "version" "3.30.0"
@@ -1338,6 +1356,11 @@
   dependencies:
     "graceful-fs" "^4.2.4"
     "tapable" "^2.2.0"
+
+"entities@~2.1.0":
+  "integrity" "sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w=="
+  "resolved" "https://registry.npmmirror.com/entities/-/entities-2.1.0.tgz"
+  "version" "2.1.0"
 
 "error-ex@^1.3.1":
   "integrity" "sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g=="
@@ -1875,6 +1898,11 @@
   "resolved" "https://registry.npmmirror.com/he/-/he-1.2.0.tgz"
   "version" "1.2.0"
 
+"highlight.js@^11.3.1":
+  "integrity" "sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ=="
+  "resolved" "https://registry.npmmirror.com/highlight.js/-/highlight.js-11.7.0.tgz"
+  "version" "11.7.0"
+
 "hosted-git-info@^2.1.4":
   "integrity" "sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw=="
   "resolved" "https://registry.npmmirror.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz"
@@ -2145,6 +2173,13 @@
     "prelude-ls" "^1.2.1"
     "type-check" "~0.4.0"
 
+"linkify-it@^3.0.1":
+  "integrity" "sha512-ynTsyrFSdE5oZ/O9GEf00kPngmOfVwazR5GKDq6EYfhlpFug3J2zybX56a2PRRpc9P+FuSoGNAwjlbDs9jJBPQ=="
+  "resolved" "https://registry.npmmirror.com/linkify-it/-/linkify-it-3.0.3.tgz"
+  "version" "3.0.3"
+  dependencies:
+    "uc.micro" "^1.0.1"
+
 "load-json-file@^4.0.0":
   "integrity" "sha512-Kx8hMakjX03tiGTLAIdJ+lL0htKnXjEZN6hk/tozf/WOuYGdZBJrZ+rCJRbVCugsjB3jMLn9746NsQIf5VjBMw=="
   "resolved" "https://registry.npmmirror.com/load-json-file/-/load-json-file-4.0.0.tgz"
@@ -2171,6 +2206,11 @@
   "integrity" "sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw=="
   "resolved" "https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz"
   "version" "4.17.21"
+
+"lodash.flow@^3.5.0":
+  "integrity" "sha512-ff3BX/tSioo+XojX4MOsOMhJw0nZoUEF011LX8g8d3gvjVbxd89cCio4BCXronjxcTUIJUoqKEUA+n4CqvvRPw=="
+  "resolved" "https://registry.npmmirror.com/lodash.flow/-/lodash.flow-3.5.0.tgz"
+  "version" "3.5.0"
 
 "lodash.merge@^4.6.2":
   "integrity" "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ=="
@@ -2214,6 +2254,85 @@
   "integrity" "sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw=="
   "resolved" "https://registry.npmmirror.com/make-error/-/make-error-1.3.6.tgz"
   "version" "1.3.6"
+
+"markdown-it-abbr@^1.0.4":
+  "integrity" "sha512-ZeA4Z4SaBbYysZap5iZcxKmlPL6bYA8grqhzJIHB1ikn7njnzaP8uwbtuXc4YXD5LicI4/2Xmc0VwmSiFV04gg=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-abbr/-/markdown-it-abbr-1.0.4.tgz"
+  "version" "1.0.4"
+
+"markdown-it-anchor@^8.4.1":
+  "integrity" "sha512-FlCHFwNnutLgVTflOYHPW2pPcl2AACqVzExlkGQNsi4CJgqOHN7YTgDd4LuhgN1BFO3TS0vLAruV1Td6dwWPJA=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-anchor/-/markdown-it-anchor-8.6.7.tgz"
+  "version" "8.6.7"
+
+"markdown-it-deflist@^2.1.0":
+  "integrity" "sha512-3OuqoRUlSxJiuQYu0cWTLHNhhq2xtoSFqsZK8plANg91+RJQU1ziQ6lA2LzmFAEes18uPBsHZpcX6We5l76Nzg=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-deflist/-/markdown-it-deflist-2.1.0.tgz"
+  "version" "2.1.0"
+
+"markdown-it-emoji@^2.0.0":
+  "integrity" "sha512-zLftSaNrKuYl0kR5zm4gxXjHaOI3FAOEaloKmRA5hijmJZvSjmxcokOLlzycb/HXlUFWzXqpIEoyEMCE4i9MvQ=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-emoji/-/markdown-it-emoji-2.0.2.tgz"
+  "version" "2.0.2"
+
+"markdown-it-footnote@^3.0.3":
+  "integrity" "sha512-YZMSuCGVZAjzKMn+xqIco9d1cLGxbELHZ9do/TSYVzraooV8ypsppKNmUJ0fVH5ljkCInQAtFpm8Rb3eXSrt5w=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-footnote/-/markdown-it-footnote-3.0.3.tgz"
+  "version" "3.0.3"
+
+"markdown-it-highlightjs@^3.6.0":
+  "integrity" "sha512-ex+Lq3cVkprh0GpGwFyc53A/rqY6GGzopPCG1xMsf8Ya3XtGC8Uw9tChN1rWbpyDae7tBBhVHVcMM29h4Btamw=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-highlightjs/-/markdown-it-highlightjs-3.6.0.tgz"
+  "version" "3.6.0"
+  dependencies:
+    "highlight.js" "^11.3.1"
+    "lodash.flow" "^3.5.0"
+
+"markdown-it-ins@^3.0.1":
+  "integrity" "sha512-32SSfZqSzqyAmmQ4SHvhxbFqSzPDqsZgMHDwxqPzp+v+t8RsmqsBZRG+RfRQskJko9PfKC2/oxyOs4Yg/CfiRw=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-ins/-/markdown-it-ins-3.0.1.tgz"
+  "version" "3.0.1"
+
+"markdown-it-mark@^3.0.1":
+  "integrity" "sha512-HyxjAu6BRsdt6Xcv6TKVQnkz/E70TdGXEFHRYBGLncRE9lBFwDNLVtFojKxjJWgJ+5XxUwLaHXy+2sGBbDn+4A=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-mark/-/markdown-it-mark-3.0.1.tgz"
+  "version" "3.0.1"
+
+"markdown-it-sub@^1.0.0":
+  "integrity" "sha512-z2Rm/LzEE1wzwTSDrI+FlPEveAAbgdAdPhdWarq/ZGJrGW/uCQbKAnhoCsE4hAbc3SEym26+W2z/VQB0cQiA9Q=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-sub/-/markdown-it-sub-1.0.0.tgz"
+  "version" "1.0.0"
+
+"markdown-it-sup@^1.0.0":
+  "integrity" "sha512-E32m0nV9iyhRR7CrhnzL5msqic7rL1juWre6TQNxsnApg7Uf+F97JOKxUijg5YwXz86lZ0mqfOnutoryyNdntQ=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-sup/-/markdown-it-sup-1.0.0.tgz"
+  "version" "1.0.0"
+
+"markdown-it-task-lists@^2.1.1":
+  "integrity" "sha512-TxFAc76Jnhb2OUu+n3yz9RMu4CwGfaT788br6HhEDlvWfdeJcLUsxk1Hgw2yJio0OXsxv7pyIPmvECY7bMbluA=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-task-lists/-/markdown-it-task-lists-2.1.1.tgz"
+  "version" "2.1.1"
+
+"markdown-it-toc-done-right@^4.2.0":
+  "integrity" "sha512-UB/IbzjWazwTlNAX0pvWNlJS8NKsOQ4syrXZQ/C72j+jirrsjVRT627lCaylrKJFBQWfRsPmIVQie8x38DEhAQ=="
+  "resolved" "https://registry.npmmirror.com/markdown-it-toc-done-right/-/markdown-it-toc-done-right-4.2.0.tgz"
+  "version" "4.2.0"
+
+"markdown-it@*", "markdown-it@^12.3.2":
+  "integrity" "sha512-TchMembfxfNVpHkbtriWltGWc+m3xszaRD0CZup7GFFhzIgQqxIfn3eGj1yZpfuflzPvfkt611B2Q/Bsk1YnGg=="
+  "resolved" "https://registry.npmmirror.com/markdown-it/-/markdown-it-12.3.2.tgz"
+  "version" "12.3.2"
+  dependencies:
+    "argparse" "^2.0.1"
+    "entities" "~2.1.0"
+    "linkify-it" "^3.0.1"
+    "mdurl" "^1.0.1"
+    "uc.micro" "^1.0.5"
+
+"mdurl@^1.0.1":
+  "integrity" "sha512-/sKlQJCBYVY9Ers9hqzKou4H6V5UWc/M59TH2dvkt+84itfnq7uFOMLpOiOS4ujvHP4etln18fmIxA5R5fll0g=="
+  "resolved" "https://registry.npmmirror.com/mdurl/-/mdurl-1.0.1.tgz"
+  "version" "1.0.1"
 
 "memorystream@^0.3.1":
   "integrity" "sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw=="
@@ -2976,15 +3095,15 @@
     "for-each" "^0.3.3"
     "is-typed-array" "^1.1.9"
 
-"typed.js@^2.0.12":
-  "integrity" "sha512-kQNtvm6+dEcUc5sdskEgV17rsdvimQNsDRHnp8PasBY85dYqVoo4TCanakSkfherMN+lZEko5ccMMKJpuR42Fw=="
-  "resolved" "https://registry.npmmirror.com/typed.js/-/typed.js-2.0.15.tgz"
-  "version" "2.0.15"
-
 "typescript@*", "typescript@>=2.7", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=4.4.4", "typescript@~4.8.4":
   "integrity" "sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ=="
   "resolved" "https://registry.npmmirror.com/typescript/-/typescript-4.8.4.tgz"
   "version" "4.8.4"
+
+"uc.micro@^1.0.1", "uc.micro@^1.0.5":
+  "integrity" "sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA=="
+  "resolved" "https://registry.npmmirror.com/uc.micro/-/uc.micro-1.0.6.tgz"
+  "version" "1.0.6"
 
 "unbox-primitive@^1.0.2":
   "integrity" "sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw=="
@@ -3089,7 +3208,7 @@
   dependencies:
     "is-plain-object" "3.0.1"
 
-"vue@^2.6.14 || ^3.2.0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.1.4", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.47", "vue@>=3.0.3", "vue@>=3.2.0", "vue@3.2.47":
+"vue@^2.6.14 || ^3.2.0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.47", "vue@>=3.0.3", "vue@>=3.2.0", "vue@3.2.47":
   "integrity" "sha512-60188y/9Dc9WVrAZeUVSDxRQOZ+z+y5nO2ts9jWXSTkMvayiWxCWOWtBQoYjLeccfXkiiPZWAHcV+WTPhkqJHQ=="
   "resolved" "https://registry.npmmirror.com/vue/-/vue-3.2.47.tgz"
   "version" "3.2.47"
@@ -3100,14 +3219,24 @@
     "@vue/server-renderer" "3.2.47"
     "@vue/shared" "3.2.47"
 
-"vue3typed@^0.1.5":
-  "integrity" "sha512-hJ20Nvuze8uYlAwJj9Q3vCYxQ03ePvyvLIl01XdhIQzyuP0eqPd9n7/9w872LE1skRVC/n4l/YTAnSmymImtpw=="
-  "resolved" "https://registry.npmmirror.com/vue3typed/-/vue3typed-0.1.5.tgz"
-  "version" "0.1.5"
+"vue3-markdown-it@^1.0.10":
+  "integrity" "sha512-mTvHu0zl7jrh7ojgaZ+tTpCLiS4CVg4bTgTu4KGhw/cRRY5YgIG8QgFAPu6kCzSW6Znc9a52Beb6hFvF4hSMkQ=="
+  "resolved" "https://registry.npmmirror.com/vue3-markdown-it/-/vue3-markdown-it-1.0.10.tgz"
+  "version" "1.0.10"
   dependencies:
-    "core-js" "^3.6.5"
-    "typed.js" "^2.0.12"
-    "vue" "^3.1.4"
+    "markdown-it" "^12.3.2"
+    "markdown-it-abbr" "^1.0.4"
+    "markdown-it-anchor" "^8.4.1"
+    "markdown-it-deflist" "^2.1.0"
+    "markdown-it-emoji" "^2.0.0"
+    "markdown-it-footnote" "^3.0.3"
+    "markdown-it-highlightjs" "^3.6.0"
+    "markdown-it-ins" "^3.0.1"
+    "markdown-it-mark" "^3.0.1"
+    "markdown-it-sub" "^1.0.0"
+    "markdown-it-sup" "^1.0.0"
+    "markdown-it-task-lists" "^2.1.1"
+    "markdown-it-toc-done-right" "^4.2.0"
 
 "warning@^4.0.0":
   "integrity" "sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w=="
