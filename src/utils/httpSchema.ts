@@ -14,6 +14,9 @@ export interface IAppDetail {
 }
 
 export interface AppListResp {
+  page: number
+  size: number
+  total: number
   data: IAppDetail[]
 }
 export interface AppDetailResp {
