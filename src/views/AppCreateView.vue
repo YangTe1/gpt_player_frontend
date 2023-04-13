@@ -23,7 +23,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { newClient } from '../utils/httpClient'
+import { newClient, AppDetailResp } from '../utils/httpClient'
+import { message } from 'ant-design-vue'
 
 export default defineComponent({
   setup() {
@@ -41,7 +42,18 @@ export default defineComponent({
     const client = newClient(token as string)
 
     const onSubmit = async () => {
-      const app = await client.appCreate(name.value, desc.value, prompt.value, example.value)
+      let app: AppDetailResp
+      try {
+        app = await client.appCreate(name.value, desc.value, prompt.value, example.value)
+      } catch (err) {
+        console.log(err)
+        if (err?.msg) {
+          message.error(`创建失败: ${err.msg}`)
+          return
+        }
+        message.error('创建失败，请稍后重试')
+        return
+      }
       console.log(app)
       router.push({ path: `/app/${app.data.id}` })
       return

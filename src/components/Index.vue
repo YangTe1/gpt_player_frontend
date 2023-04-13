@@ -1,13 +1,10 @@
 <script lang="ts">
 import { LikeOutlined, MessageOutlined, MehTwoTone } from '@ant-design/icons-vue'
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { newClient } from '../utils/httpClient'
+import { message } from 'ant-design-vue'
 
-const token = ''
-const client = newClient(token)
-const appList = await client.appList(0, 20, '')
-console.log(appList)
 export default defineComponent({
   components: {
     LikeOutlined,
@@ -16,7 +13,26 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
-    const currentDate = new Date()
+    const token = ''
+    const client = newClient(token)
+    let items = reactive([])
+    client
+      .appList(0, 20, '')
+      .then((appList) => {
+        for (const app of appList.data) {
+          items.push(app)
+        }
+        console.log(items)
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err?.msg) {
+          message.error(`服务器异常，请稍后刷新重试: ${err.msg}`)
+        } else {
+          message.error(`服务器异常，请稍后刷新重试`)
+        }
+        return
+      })
 
     const onClick = (itemId: string) => {
       router.push({
@@ -40,8 +56,7 @@ export default defineComponent({
 
     return {
       onClick,
-      currentDate,
-      items: appList.data,
+      items,
       cardHeight
     }
   }

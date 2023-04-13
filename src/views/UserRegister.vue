@@ -49,7 +49,8 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { newClient } from '../utils/httpClient'
+import { newClient, RegisterResp } from '../utils/httpClient'
+import { message } from 'ant-design-vue'
 
 interface FormState {
   username: string
@@ -67,19 +68,30 @@ export default defineComponent({
     })
     const onFinish = async (values: any) => {
       console.log('Success:', values)
-      const resp = await client.register(values.username, values.password, values.email)
-      console.log(resp)
-      if (resp?.ok) {
-        router.push({
-          path: '/login'
-        })
+      let resp: RegisterResp
+      try {
+        resp = await client.register(values.username, values.password, values.email)
+        console.log(resp)
+        if (resp?.ok) {
+          router.push({
+            path: '/login'
+          })
+          return
+        }
+      } catch (err) {
+        console.log(err)
+        if (err?.msg) {
+          message.error(`新建用户失败: ${err.msg}`)
+        } else {
+          message.error(`新建用户失败，请检查信息`)
+        }
         return
       }
     }
 
     const onFinishFailed = (errorInfo: any) => {
       console.log('Failed:', errorInfo)
-      // TODO: 错误提示
+      message.error(`新建用户失败，请检查信息`)
     }
     return {
       formState,

@@ -8,11 +8,7 @@ import type {
   IAppDetail,
   IChat
 } from './httpSchema'
-// import { tfAppData, tfAppListResp, tfAppListSimpleResp } from './transfSchema'
-// import Config from '../conf'
-// import { OrchestratorException } from '../exception/orchestrator'
-// import { logger } from '../logger'
-// import { TfRequestError } from '../exception/tfApp'
+import { HttpException } from './httpError'
 
 export interface TfClientOptions {
   host: string
@@ -71,13 +67,6 @@ export class TfAppClient {
     this.instance = axios.create(config)
 
     this.instance.interceptors.request.use(function (config: AxiosRequestConfig): any {
-      // if (config.headers && Object.keys(config.headers).length) {
-      //   // 自定义了headers
-      //   config.headers = Object.assign(initHeaders, config.headers)
-      // } else {
-      //   config.headers = initHeaders
-      // }
-      // console.log(config)
       if (config.headers && token) {
         Object.assign(config.headers, {
           Authorization: `Bearer ${token}`
@@ -93,40 +82,48 @@ export class TfAppClient {
   private static async SucceedResponse(response: AxiosResponse): Promise<any> {
     const resp = response.data
     if (resp?.code !== 0) {
-      console.log(`【tfReqClient Err】 => url: ${response.request.URL} --- msg: ${resp.message}`)
-      // throw new OrchestratorException(resp.msg, response.status, resp.code)
+      console.log(
+        `【tfReqClient Err】 => url: ${response.request.URL} --- msg: ${resp.msg} --- code: ${resp.code}`
+      )
+      throw new HttpException(resp.msg)
     }
     return resp
   }
 
   private static async ErrResponse(error: any): Promise<any> {
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.log(
-        `【tfReqClient Err】 => url: ${error.response.config.url}\ndata: ${JSON.stringify(
-          error.response.data
-        )}`
-      )
-      if (TfAppClient.debug) {
-        console.log('【tfReqClient Err】 => ', error.response) // debugMode
-      }
-      if (error.response.status === 401) {
-        const d = error.response.data
-        // throw new TfRequestError(d.code, d.msg, 401)
-      }
-    } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
-      console.log(`【tfReqClient Err】 => url: ${error.request.res}`)
-      if (TfAppClient.debug) {
-        console.log('【tfReqClient Err】 => ', error.request) // debugMode
-      }
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log('【tfReqClient Err】 => ', error.message)
+    console.log(`http error: ${JSON.stringify(error)}`)
+    if (error?.response?.data) {
+      console.log(`resp error: ${JSON.stringify(error.response)}`)
+      throw new HttpException(error.response.data.msg)
     }
+
+    // if (error.response) {
+    //   // The request was made and the server responded with a status code
+    //   // that falls out of the range of 2xx
+    //   console.log(
+    //     `【tfReqClient Err】 => url: ${error.response.config.url}\ndata: ${JSON.stringify(
+    //       error.response.data
+    //     )}`
+    //   )
+    //   if (TfAppClient.debug) {
+    //     console.log('【tfReqClient Err】 => ', error.response) // debugMode
+    //   }
+    //   if (error.response.status === 401) {
+    //     const d = error.response.data
+    //     // throw new TfRequestError(d.code, d.msg, 401)
+    //   }
+    // } else if (error.request) {
+    //   // The request was made but no response was received
+    //   // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+    //   // http.ClientRequest in node.js
+    //   console.log(`【tfReqClient Err】 => url: ${error.request.res}`)
+    //   if (TfAppClient.debug) {
+    //     console.log('【tfReqClient Err】 => ', error.request) // debugMode
+    //   }
+    // } else {
+    //   // Something happened in setting up the request that triggered an Error
+    //   console.log('【tfReqClient Err】 => ', error.message)
+    // }
     return Promise.reject(error)
   }
 

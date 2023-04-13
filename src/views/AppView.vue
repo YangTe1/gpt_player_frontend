@@ -27,12 +27,12 @@
 <script lang="ts">
 import { defineComponent, reactive, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { newClient } from '../utils/httpClient'
-
-const router = useRouter()
+import { newClient, IAppDetail, IChat } from '../utils/httpClient'
+import { message } from 'ant-design-vue'
 
 export default defineComponent({
   setup() {
+    const router = useRouter()
     const example = ref<string>('')
     const isLoading = ref<boolean>(false)
     const responseMsg = ref<string>('')
@@ -50,26 +50,68 @@ export default defineComponent({
     const route = useRoute()
     const appId = route.params.appId
     console.log(appId)
-    onMounted(async () => {
-      const client = newClient(token as string)
-      const resp = await client.appDetail(appId as string)
-      // console.log(`data: ${JSON.stringify(resp)}`)
-      appData.example = resp.example
-      appData.name = resp.name
-      appData.description = resp.description
-      appData.id = resp.id
-      example.value = resp.example
-      console.log(`data: ${JSON.stringify(appData)}`)
-    })
+    const client = newClient(token as string)
+    // let resp: IAppDetail
+    client
+      .appDetail(appId as string)
+      .then((resp) => {
+        appData.example = resp.example
+        appData.name = resp.name
+        appData.description = resp.description
+        appData.id = resp.id
+        example.value = resp.example
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err?.msg) {
+          message.error('应用不存在, 请刷新页面')
+        }
+        message.error('应用不存在, 请刷新页面')
+        router.push({ path: '/' })
+        return
+      })
+    // console.log(`data: ${JSON.stringify(resp)}`)
+    console.log(`data: ${JSON.stringify(appData)}`)
+    // onMounted(async () => {
+    //     const client = newClient(token as string)
+    //     let resp: IAppDetail
+    //     try {
+    //         resp = await client.appDetail(appId as string)
+    //     } catch (err) {
+    //         console.log(err)
+    //         if (err?.msg) {
+    //             message.error("应用不存在, 请刷新页面")
+    //         }
+    //         message.error("应用不存在, 请刷新页面")
+    //         router.push({ path: '/' })
+    //         return
+    //     }
+    //     // console.log(`data: ${JSON.stringify(resp)}`)
+    //     appData.example = resp.example
+    //     appData.name = resp.name
+    //     appData.description = resp.description
+    //     appData.id = resp.id
+    //     example.value = resp.example
+    //     console.log(`data: ${JSON.stringify(appData)}`)
+    // })
 
     const onSubmit = async () => {
       isLoading.value = true
       console.log('运行了')
       const client = newClient(token as string)
-      const data = await client.chat(appData.id, example.value)
-      console.log('data: ', data)
-      isLoading.value = false
-      responseMsg.value = data.message
+      let data: IChat
+      try {
+        data = await client.chat(appData.id, example.value)
+        console.log('data: ', data)
+        isLoading.value = false
+        responseMsg.value = data.message
+      } catch (err) {
+        if (err?.msg) {
+          message.error(`发送失败，请稍后重试${err.msg}`)
+        } else {
+          message.error('发送失败，请稍后重试')
+        }
+      }
       return
     }
     return {

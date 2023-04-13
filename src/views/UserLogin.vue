@@ -37,7 +37,8 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { newClient } from '../utils/httpClient'
+import { newClient, LoginResp } from '../utils/httpClient'
+import { message } from 'ant-design-vue'
 
 interface FormState {
   username: string
@@ -53,13 +54,24 @@ export default defineComponent({
     })
     const onFinish = async (values: any) => {
       console.log('Success:', values)
-      const data = await client.login(values.username, values.password)
-      console.log(data)
-      if (data?.token) {
-        localStorage.setItem('token', data.token)
-        router.push({
-          path: '/'
-        })
+      let data: LoginResp
+      try {
+        data = await client.login(values.username, values.password)
+        console.log(data)
+        if (data?.token) {
+          localStorage.setItem('token', data.token)
+          router.push({
+            path: '/'
+          })
+          return
+        }
+      } catch (err) {
+        console.log(err)
+        if (err?.msg) {
+          message.error(`登录失败: ${err.msg}`)
+        } else {
+          message.error(`登录失败，请检查信息`)
+        }
         return
       }
     }
