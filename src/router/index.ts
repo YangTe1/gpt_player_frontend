@@ -5,6 +5,8 @@ import AppCreateView from '../views/AppCreateView.vue'
 import UserRegisterView from '../views/UserRegister.vue'
 import UserLoginView from '../views/UserLogin.vue'
 import UserLogoutView from '../views/UserLogout.vue'
+import PaymentView from '../views/PaymentView.vue'
+import OrderHistoryView from '../views/OrderHistoryView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,6 +49,16 @@ const router = createRouter({
       path: '/logout',
       name: 'logout',
       component: UserLogoutView
+    },
+    {
+      path: '/order',
+      name: 'orderList',
+      component: OrderHistoryView
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: PaymentView
     }
   ]
 })

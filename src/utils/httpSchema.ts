@@ -35,3 +35,6 @@ export interface IChat {
 export interface ChatResp {
   data: IChat
 }
+export interface QrCodeResp {
+  qr_code: string
+}

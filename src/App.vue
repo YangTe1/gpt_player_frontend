@@ -1,30 +1,44 @@
-<script setup lang="ts">
-import { ref } from 'vue'
+<script lang="ts">
+import { UserOutlined } from '@ant-design/icons-vue'
+import { ref, defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 // import Index from './components/IndexView.vue'
 // import HelloWorld from './components/HelloWorld.vue'
-const token = localStorage.getItem('token')
-let navs = []
-if (token) {
-  navs = [
-    { key: '1', label: '首页', name: 'index' },
-    { key: '2', label: '退出登录', name: 'logout' }
-  ]
-} else {
-  navs = [
-    { key: '1', label: '首页', name: 'index' },
-    { key: '2', label: '注册', name: 'register' },
-    { key: '2', label: '登录', name: 'login' }
-  ]
-}
-const router = useRouter()
-const selectedKeys1 = ref<string[]>(['1'])
-const jump = (name: string) => {
-  router.push({
-    name,
-    query: {}
-  })
-}
+
+export default defineComponent({
+  components: {
+    UserOutlined
+  },
+  setup() {
+    const token = localStorage.getItem('token')
+    let navs = []
+    if (token) {
+      navs = [
+        { key: '1', label: '首页', name: 'index' },
+        { key: '2', label: '退出登录', name: 'logout' }
+      ]
+    } else {
+      navs = [
+        { key: '1', label: '首页', name: 'index' },
+        { key: '2', label: '注册', name: 'register' },
+        { key: '2', label: '登录', name: 'login' }
+      ]
+    }
+    const router = useRouter()
+    const selectedKeys1 = ref<string[]>(['1'])
+    const jump = (name: string) => {
+      router.push({
+        name,
+        query: {}
+      })
+    }
+    return {
+      token,
+      jump,
+      navs
+    }
+  }
+})
 </script>
 
 <template>
@@ -44,14 +58,18 @@ const jump = (name: string) => {
 
         <!-- <RouterLink :to="nav.router">{{ nav.label }}</RouterLink> -->
       </a-menu-item>
+      <a-menu-item v-if="token" @click="jump('payment')">
+        <UserOutlined />
+      </a-menu-item>
     </a-menu>
   </a-layout-header>
   <a-layout-content style="padding-top: 50px; min-height: calc(100% - 64px)">
     <RouterView />
   </a-layout-content>
+  <a-divider />
   <a-layout-footer>
     <div class="text-center">
-      <p class="text-md">有bug或建议欢迎发送邮件</p>
+      <p class="text-md">遇到问题或有更好的使用建议欢迎发送邮件</p>
       <span class="text-md">manbugv@163.com</span>
     </div>
   </a-layout-footer>

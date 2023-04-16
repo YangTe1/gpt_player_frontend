@@ -6,7 +6,8 @@ import type {
   RegisterResp,
   AppDetailResp,
   IAppDetail,
-  IChat
+  IChat,
+  QrCodeResp
 } from './httpSchema'
 import { HttpException } from './httpError'
 
@@ -235,6 +236,15 @@ export class TfAppClient {
     const resp = await this.post(url, data)
     return resp.data
   }
+
+  public async pre_order(amount: number): Promise<QrCodeResp> {
+    const url = this.genUrl('/order/pre_trade')
+    const data = {
+      amount: amount
+    }
+    const resp = await this.post(url, data)
+    return resp.data
+  }
 }
 
 export function newClient(
@@ -246,7 +256,9 @@ export function newClient(
   const options: TfClientOptions = {
     token,
     // host: Config.RPA_HOST as string,
-    host: 'http://192.168.3.128:8000/', // 本地debug地址
+    // host: 'http://192.168.3.128:8000/', // 本地debug地址
+    host: 'http://127.0.0.1:8000/', // 本地debug地址
+    // timeout: 200 * 1000,
     timeout: 200 * 1000,
     keepalive,
     debug
