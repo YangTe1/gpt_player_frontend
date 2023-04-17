@@ -245,6 +245,12 @@ export class TfAppClient {
     const resp = await this.post(url, data)
     return resp.data
   }
+
+  public async left(): Promise<number> {
+    const url = this.genUrl('/user/left')
+    const resp = await this.get(url)
+    return resp.data
+  }
 }
 
 export function newClient(
@@ -256,8 +262,8 @@ export function newClient(
   const options: TfClientOptions = {
     token,
     // host: Config.RPA_HOST as string,
-    // host: 'http://192.168.3.128:8000/', // 本地debug地址
-    host: 'http://127.0.0.1:8000/', // 本地debug地址
+    host: 'http://192.168.3.128:8000/', // 本地debug地址
+    // host: 'http://127.0.0.1:8000/', // 本地debug地址
     // timeout: 200 * 1000,
     timeout: 200 * 1000,
     keepalive,

@@ -37,4 +37,5 @@ export interface ChatResp {
 }
 export interface QrCodeResp {
   qr_code: string
+  out_trade_no: string
 }

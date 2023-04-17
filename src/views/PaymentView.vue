@@ -1,6 +1,6 @@
 <template>
   <div class="text-center" style="min-height: 200px; margin-bottom: 100px">
-    <p class="text-sm">当前剩余次数：</p>
+    <p class="text-sm">当前剩余次数：{{ leftTime }}</p>
     <p class="text-hg">充值</p>
     <p class="text-md">每天首次登录获得3次免费次数，超出使用次数请购买次数</p>
   </div>
@@ -19,23 +19,47 @@
         <span class="text-lg">￥50</span><span class="text-md">300次</span>
       </a-radio>
       <a-button type="primary" @click="onSubmit(value)" style="margin-top: 30px">充值</a-button>
+      <a-modal v-model:visible="visible" title="请用支付宝扫码" @ok="handleOk">
+        <img :src="qrCode" alt="支付宝二维码" />
+      </a-modal>
     </a-radio-group>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { newClient } from '../utils/httpClient'
+import { newClient, QrCodeResp } from '../utils/httpClient'
+import { message } from 'ant-design-vue'
+import qrcode from 'qrcode'
 
 export default defineComponent({
   setup() {
     const value = ref < Number > 1
+    const leftTime = ref<string>('0')
     const radioStyle = reactive({
       display: 'flex',
       height: '30px',
       lineHeight: '30px'
     })
+
+    const requestLeft = async () => {
+      const token = localStorage.getItem('token')
+      const client = newClient(token)
+      let a: string
+      try {
+        a = await client.left()
+      } catch (err) {
+        console.log(err)
+        if (err?.msg) {
+          a = `信息获取异常: ${err.msg}`
+        } else {
+          a = '信息获取异常'
+        }
+      }
+      console.log(a)
+      leftTime.value = a
+    }
 
     const onSubmit = async (payment) => {
       console.log(payment)
@@ -45,9 +69,10 @@ export default defineComponent({
         router.push({ path: '/login' })
       }
       const client = newClient(token)
+      let preOrder: QrCodeResp
 
       try {
-        app = await client.pre_order(payment)
+        preOrder = await client.pre_order(payment)
       } catch (err) {
         console.log(err)
         if (err?.msg) {
@@ -57,14 +82,47 @@ export default defineComponent({
         message.error('充值失败，请重试')
         return
       }
+      console.log(preOrder)
+      visible.value = true
       // TODO: 展示二维码
+      const dataUrl = await qrcode.toDataURL(preOrder.qr_code)
+      qrCode.value = dataUrl
       return
+    }
+
+    const visible = ref<boolean>(false)
+    const qrCode = ref<string>('')
+    const qrCodeUrl = ref<string>('')
+
+    const handleOk = (e) => {
+      const router = useRouter()
+      console.log(e)
+      visible.value = false
+      router.go(0)
+    }
+
+    const token = localStorage.getItem('token')
+    if (!token) {
+      leftTime.value = '-'
+    } else {
+      console.log('left time: ')
+      requestLeft()
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
 
     return {
       value,
       radioStyle,
-      onSubmit
+      onSubmit,
+      visible,
+      handleOk,
+      qrCode,
+      leftTime
     }
   }
 })
