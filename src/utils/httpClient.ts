@@ -188,6 +188,15 @@ export class TfAppClient {
     return resp.data
   }
 
+  public async fakeLogin(authCode: string): Promise<LoginResp> {
+    const url = this.genUrl('/user/login_fake')
+    const data = {
+      auth_code: authCode
+    }
+    const resp = await this.post(url, data)
+    return resp.data
+  }
+
   public async appList(pageNum: number, pageSize: number, query: string): Promise<AppListResp> {
     const url = this.genUrl('/app')
     console.log(`url:    ${url}`)

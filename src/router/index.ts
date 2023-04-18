@@ -7,6 +7,8 @@ import UserLoginView from '../views/UserLogin.vue'
 import UserLogoutView from '../views/UserLogout.vue'
 import PaymentView from '../views/PaymentView.vue'
 import OrderHistoryView from '../views/OrderHistoryView.vue'
+import AliLoginView from '../views/AliLoginView.vue'
+import FakeLoginView from '../views/FakeLoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,16 +37,16 @@ const router = createRouter({
       name: 'appCreate',
       component: AppCreateView
     },
-    {
-      path: '/register',
-      name: 'register',
-      component: UserRegisterView
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: UserLoginView
-    },
+    // {
+    //   path: '/register',
+    //   name: 'register',
+    //   component: UserRegisterView
+    // },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: UserLoginView
+    // },
     {
       path: '/logout',
       name: 'logout',
@@ -59,6 +61,16 @@ const router = createRouter({
       path: '/payment',
       name: 'payment',
       component: PaymentView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: AliLoginView
+    },
+    {
+      path: '/fake_login',
+      name: 'fakeLogin',
+      component: FakeLoginView
     }
   ]
 })
