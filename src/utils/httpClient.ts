@@ -41,7 +41,7 @@ export class TfAppClient {
     // if (!opt.token) {
     //   assert(false, 'token must be filled')
     // }
-    this.token = opt.token + 'fdafdafad'
+    this.token = opt.token
     if (opt.timeout) {
       this.timeout = opt.timeout
     }

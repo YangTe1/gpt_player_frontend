@@ -20,7 +20,7 @@ export default defineComponent({
     } else {
       navs = [
         { key: '1', label: '首页', name: 'index' },
-        { key: '2', label: '注册', name: 'register' },
+        // { key: '2', label: '注册', name: 'register' },
         { key: '2', label: '登录', name: 'login' }
       ]
     }
