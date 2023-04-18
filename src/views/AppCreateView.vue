@@ -46,6 +46,12 @@ export default defineComponent({
       try {
         app = await client.appCreate(name.value, desc.value, prompt.value, example.value)
       } catch (err) {
+        if (err?.status == 401) {
+          localStorage.removeItem('token')
+          message.error('登录过期，请重新登录')
+          router.push({ path: '/login' })
+          return
+        }
         console.log(err)
         if (err?.msg) {
           message.error(`创建失败: ${err.msg}`)

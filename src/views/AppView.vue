@@ -68,6 +68,12 @@ export default defineComponent({
       })
       .catch((err) => {
         console.log(err)
+        if (err?.status == 401) {
+          localStorage.removeItem('token')
+          message.error('登录过期，请重新登录')
+          router.push({ path: '/login' })
+          return
+        }
         if (err?.msg) {
           message.error('应用不存在, 请刷新页面')
         }

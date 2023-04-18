@@ -41,7 +41,7 @@ export class TfAppClient {
     // if (!opt.token) {
     //   assert(false, 'token must be filled')
     // }
-    this.token = opt.token
+    this.token = opt.token + 'fdafdafad'
     if (opt.timeout) {
       this.timeout = opt.timeout
     }
@@ -86,7 +86,7 @@ export class TfAppClient {
       console.log(
         `【tfReqClient Err】 => url: ${response.request.URL} --- msg: ${resp.msg} --- code: ${resp.code}`
       )
-      throw new HttpException(resp.msg)
+      throw new HttpException(resp.msg, response.status)
     }
     return resp
   }
@@ -95,7 +95,7 @@ export class TfAppClient {
     console.log(`http error: ${JSON.stringify(error)}`)
     if (error?.response?.data) {
       console.log(`resp error: ${JSON.stringify(error.response)}`)
-      throw new HttpException(error.response.data.msg)
+      throw new HttpException(error.response.data.msg, error.response.status)
     }
 
     // if (error.response) {

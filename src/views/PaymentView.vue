@@ -42,6 +42,7 @@ export default defineComponent({
       height: '30px',
       lineHeight: '30px'
     })
+    const router = useRouter()
 
     const requestLeft = async () => {
       const token = localStorage.getItem('token')
@@ -51,6 +52,13 @@ export default defineComponent({
         a = await client.left()
       } catch (err) {
         console.log(err)
+
+        if (err?.status == 401) {
+          localStorage.removeItem('token')
+          message.error('登录过期，请重新登录')
+          router.push({ path: '/login' })
+          return
+        }
         if (err?.msg) {
           a = `信息获取异常: ${err.msg}`
         } else {
@@ -64,7 +72,6 @@ export default defineComponent({
     const onSubmit = async (payment) => {
       console.log(payment)
       const token = localStorage.getItem('token')
-      const router = useRouter()
       if (!token) {
         router.push({ path: '/login' })
       }
@@ -75,6 +82,13 @@ export default defineComponent({
         preOrder = await client.pre_order(payment)
       } catch (err) {
         console.log(err)
+
+        if (err?.status == 401) {
+          localStorage.removeItem('token')
+          message.error('登录过期，请重新登录')
+          router.push({ path: '/login' })
+          return
+        }
         if (err?.msg) {
           message.error(`充值失败，请重试: ${err.msg}`)
           return
