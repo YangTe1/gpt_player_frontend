@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { Stream } from 'stream'
 // import assert from 'assert'
 import type {
   AppListResp,
@@ -81,6 +82,7 @@ export class TfAppClient {
   }
 
   private static async SucceedResponse(response: AxiosResponse): Promise<any> {
+    console.log('1111111: ', response)
     const resp = response.data
     if (resp?.code !== 0) {
       console.log(
@@ -244,6 +246,16 @@ export class TfAppClient {
     }
     const resp = await this.post(url, data)
     return resp.data
+  }
+
+  public async chatStream(appId: string, msg: string): Promise<Stream> {
+    const url = this.genUrl('/chat/stream')
+    const data = {
+      app_id: appId,
+      query: msg
+    }
+    const resp = await this.post(url, data)
+    return resp
   }
 
   public async pre_order(amount: number): Promise<QrCodeResp> {
