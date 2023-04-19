@@ -6,6 +6,12 @@
         <p class="text-md">{{ appData.description }}</p>
 
         <a-textarea v-model:value="example" showCount :maxlength="1500" :rows="4" />
+        <div style="float: right; margin-top: 30px">
+          <a-tooltip>
+            <template #title>开发中</template>
+            <a-radio :checked="false" :disabled="true">携带历史消息</a-radio>
+          </a-tooltip>
+        </div>
         <a-button
           type="primary"
           @click="onSubmit"
@@ -20,8 +26,8 @@
       <a-spin v-if="isLoading" tip="正在输入...">
         <a-alert message="正在输入"></a-alert>
       </a-spin>
-      <p class="text-lg" v-else>{{ responseMsg }}</p>
-      <!-- <MarkdownIt :source="responseMsg" /> -->
+      <!-- <p class="text-lg" v-else>{{ responseMsg }}</p> -->
+      <MarkdownIt :source="responseMsg" />
     </div>
   </div>
 </template>
@@ -189,7 +195,7 @@ export default defineComponent({
 }
 
 .box2 {
-  width: 30%;
+  width: 60%;
   margin-top: 100px;
   text-align: center;
 }

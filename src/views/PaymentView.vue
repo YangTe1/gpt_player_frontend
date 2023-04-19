@@ -3,6 +3,11 @@
     <p class="text-sm">当前剩余次数：{{ leftTime }}</p>
     <p class="text-hg">充值</p>
     <p class="text-md">每天首次登录获得3次免费次数，超出使用次数请购买次数</p>
+    <p class="text-sm">使用须知：</p>
+    <p class="text-sm">
+      老板们理性消费，如遇到不可抗因素（如被openai限流封号等原因）导致网站永久关停等可以向下方邮箱发送邮件申请退款
+    </p>
+    <p class="text-sm">一切应用创建需遵守法律法规，如有违规行为管理员有权删除应用对账号封停</p>
   </div>
   <div class="text-center">
     <a-radio-group v-model:value="value">

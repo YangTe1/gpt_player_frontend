@@ -11,6 +11,7 @@ import type {
   QrCodeResp
 } from './httpSchema'
 import { HttpException } from './httpError'
+import { backendDomain } from './consts'
 
 export interface TfClientOptions {
   host: string
@@ -300,8 +301,8 @@ export function newClient(
   const options: TfClientOptions = {
     token,
     // host: Config.RPA_HOST as string,
-    host: 'http://192.168.3.128:8000/', // 本地debug地址
-    // host: 'http://127.0.0.1:8000/', // 本地debug地址
+    // host: 'http://192.168.3.128:8000/', // 本地debug地址
+    host: `${backendDomain}/`, // 本地debug地址
     // timeout: 200 * 1000,
     timeout: 200 * 1000,
     keepalive,

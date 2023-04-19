@@ -7,7 +7,7 @@
       <p class="text-md">应用描述</p>
       <a-textarea v-model:value="desc" showCount :maxlength="100" />
       <p class="text-md">指令</p>
-      <a-textarea v-model:value="prompt" showCount :maxlength="1500" />
+      <a-textarea v-model:value="prompt" showCount :maxlength="2500" />
       <p class="text-md">示例输入</p>
       <a-textarea v-model:value="example" placeholder="Basic usage" :rows="4" />
       <a-button type="primary" @click="onCancel" style="float: right; margin: 5px; margin-top: 10px"
@@ -17,6 +17,12 @@
       <a-button type="primary" @click="onSubmit" style="float: right; margin: 5px; margin-top: 10px"
         >创建</a-button
       >
+      <div style="float: right; margin-top: 30px">
+        <a-tooltip>
+          <template #title>开发中</template>
+          <a-radio :checked="false" :disabled="true">高级模式</a-radio>
+        </a-tooltip>
+      </div>
     </div>
   </div>
 </template>
@@ -88,8 +94,8 @@ export default defineComponent({
 }
 
 .child-container {
-  width: 30%;
-  height: 50%;
+  width: 40%;
+  height: 70%;
 }
 
 .text-md {
