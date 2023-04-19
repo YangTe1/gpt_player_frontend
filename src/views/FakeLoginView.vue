@@ -12,6 +12,11 @@ import { newClient, LoginResp } from '../utils/httpClient'
 import { message } from 'ant-design-vue'
 
 export default defineComponent({
+  beforeRouteUpdate(to, from, next) {
+    // 强制刷新组件
+    this.$forceUpdate()
+    next()
+  },
   setup() {
     const router = useRouter()
     const searchParams = new URLSearchParams(window.location.search)
