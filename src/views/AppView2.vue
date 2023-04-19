@@ -31,7 +31,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { newClient, IAppDetail, IChat } from '../utils/httpClient'
 import { message } from 'ant-design-vue'
 import MarkdownIt from 'vue3-markdown-it'
-import domain from '../utils/consts'
+import { domain, backendDomain } from '../utils/consts'
+import { v4 } from 'uuid'
 
 export default defineComponent({
   components: {
@@ -47,6 +48,7 @@ export default defineComponent({
     if (!token) {
       router.push({ path: '/' })
     }
+    const sid = v4()
     const appData = reactive({
       id: '',
       name: '',
@@ -88,24 +90,24 @@ export default defineComponent({
     const onSubmit = async () => {
       isLoading.value = true
       console.log('运行了')
-      const client = newClient(token as string)
       let data: any
       try {
         let response: any
         if (appData.id == '1' || appData.id == '11') {
-          response = await fetch(`${domain}/api/v1/chat/task/stream`, {
+          response = await fetch(`${backendDomain}/api/v1/chat/task/stream`, {
             method: 'POST',
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+              sid: sid,
               app_id: appData.id,
               query: example.value
             })
           })
         } else {
-          response = await fetch(`${domain}/api/v1/chat/stream`, {
+          response = await fetch(`${backendDomain}/api/v1/chat/stream`, {
             method: 'POST',
             headers: {
               Authorization: `Bearer ${token}`,
@@ -129,13 +131,21 @@ export default defineComponent({
           }
 
           content += new TextDecoder().decode(value)
-          console.log(content)
+          //   console.log(content)
 
           // 动态更新组件中展示的文本
           responseMsg.value = content
         }
 
-        console.log('data: ', data)
+        console.log('data: ', content)
+        const client = newClient(token as string)
+        try {
+          await client.chatLogSave(sid, appData.id, appData.name, content)
+          console.log('save history')
+        } catch (err) {
+          console.log('save history error')
+          console.log(err)
+        }
         // isLoading.value = false
         // responseMsg.value = data.message
         // responseMsg.value =

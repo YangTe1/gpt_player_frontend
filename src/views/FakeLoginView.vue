@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
-import domain from '../utils/consts'
+import { domain } from '../utils/consts'
 import { newClient, LoginResp } from '../utils/httpClient'
 import { message } from 'ant-design-vue'
 

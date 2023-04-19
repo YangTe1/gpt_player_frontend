@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import domain from '../utils/consts'
+import { domain } from '../utils/consts'
 
 export default defineComponent({
   setup() {

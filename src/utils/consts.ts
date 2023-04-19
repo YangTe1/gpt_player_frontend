@@ -1,2 +1,3 @@
 const domain = 'http://test.gpt:5173'
-export default domain
+const backendDomain = 'http://192.168.3.128:8000'
+export { domain, backendDomain }

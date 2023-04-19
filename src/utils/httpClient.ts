@@ -238,6 +238,23 @@ export class TfAppClient {
     return resp.data
   }
 
+  public async chatLogSave(
+    sid: string,
+    appId: string,
+    appName: string,
+    msg: string
+  ): Promise<IChat> {
+    const url = this.genUrl('/chat/history')
+    const data = {
+      sid: sid,
+      app_id: appId,
+      app_name: appName,
+      msg: msg
+    }
+    const resp = await this.post(url, data)
+    return resp.data
+  }
+
   public async chat(appId: string, msg: string): Promise<IChat> {
     const url = this.genUrl('/chat')
     const data = {
