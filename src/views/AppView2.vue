@@ -38,7 +38,7 @@ import { newClient } from '../utils/httpClient'
 import { IAppDetail, IChat } from '../utils/httpSchema'
 import { message } from 'ant-design-vue'
 import MarkdownIt from 'vue3-markdown-it'
-import { domain, backendDomain } from '../utils/consts'
+import { backendDomain } from '../utils/consts'
 import { v4 } from 'uuid'
 
 export default defineComponent({
