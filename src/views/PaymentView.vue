@@ -34,13 +34,14 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { newClient, QrCodeResp } from '../utils/httpClient'
+import { newClient } from '../utils/httpClient'
+import { QrCodeResp } from '../utils/httpSchema'
 import { message } from 'ant-design-vue'
 import qrcode from 'qrcode'
 
 export default defineComponent({
   setup() {
-    const value = ref < Number > 1
+    const value = ref<number>(1)
     const leftTime = ref<string>('0')
     const radioStyle = reactive({
       display: 'flex',
@@ -52,7 +53,7 @@ export default defineComponent({
     const requestLeft = async () => {
       const token = localStorage.getItem('token')
       const client = newClient(token)
-      let a: string
+      let a: any
       try {
         a = await client.left()
       } catch (err) {

@@ -6,9 +6,13 @@
     // "src/**/*.vue"
   ],
   "compilerOptions": {
+    "strict": false,
+    "importsNotUsedAsValues": "preserve",
     "preserveValueImports": false,
     "isolatedModules": false,
     "ignoreDeprecations": "5.0",
+    "noEmitOnError": false,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
       "@/*": [

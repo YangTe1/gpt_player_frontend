@@ -35,7 +35,8 @@ export default defineComponent({
     return {
       token,
       jump,
-      navs
+      navs,
+      selectedKeys1
     }
   }
 })

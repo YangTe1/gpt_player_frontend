@@ -211,7 +211,7 @@ export class TfAppClient {
         query: query
       }
     })
-    return resp
+    return resp.data
   }
 
   public async appCreate(

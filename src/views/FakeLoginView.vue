@@ -8,7 +8,8 @@
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { domain } from '../utils/consts'
-import { newClient, LoginResp } from '../utils/httpClient'
+import { newClient } from '../utils/httpClient'
+import { LoginResp } from '../utils/httpSchema'
 import { message } from 'ant-design-vue'
 
 export default defineComponent({
@@ -23,7 +24,7 @@ export default defineComponent({
     const auth_code = searchParams.get('auth_code')
     const client = newClient('')
     client
-      .fakeLogin(auth_code)
+      .fakeLogin(auth_code as string)
       .then((resp) => {
         if (resp?.token) {
           localStorage.setItem('token', resp.token)

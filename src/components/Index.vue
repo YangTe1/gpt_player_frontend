@@ -41,7 +41,7 @@ export default defineComponent({
 
     const pageIndex = reactive({
       value: 1,
-      onChange: (newValue) => {
+      onChange: (newValue: any) => {
         pageIndex.value = newValue
       }
     })
@@ -59,8 +59,8 @@ export default defineComponent({
           searchValue.value
         )
         // console.log(appList.data)
-        items.value = appListData.data.data || []
-        totalAmount.value = appListData.data.total
+        items.value = appListData.data || []
+        totalAmount.value = appListData.total
       } catch (err) {
         console.log(err)
         if (err?.msg) {
@@ -83,9 +83,9 @@ export default defineComponent({
           pageSize.value,
           searchValue.value
         )
-        console.log(appListData.data)
-        items.value = appListData.data.data || []
-        totalAmount.value = appListData.data.total
+        console.log(appListData)
+        items.value = appListData.data || []
+        totalAmount.value = appListData.total
       } catch (err) {
         console.log(err)
         if (err?.msg) {

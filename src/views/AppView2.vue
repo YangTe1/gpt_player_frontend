@@ -34,7 +34,8 @@
 <script lang="ts">
 import { defineComponent, reactive, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { newClient, IAppDetail, IChat } from '../utils/httpClient'
+import { newClient } from '../utils/httpClient'
+import { IAppDetail, IChat } from '../utils/httpSchema'
 import { message } from 'ant-design-vue'
 import MarkdownIt from 'vue3-markdown-it'
 import { domain, backendDomain } from '../utils/consts'

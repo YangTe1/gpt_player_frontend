@@ -29,7 +29,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { newClient, AppDetailResp } from '../utils/httpClient'
+import { newClient } from '../utils/httpClient'
+import { AppDetailResp } from '../utils/httpSchema'
 import { message } from 'ant-design-vue'
 
 export default defineComponent({
