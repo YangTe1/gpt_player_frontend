@@ -1,7 +1,7 @@
 <template>
   <div class="text-center" style="min-height: 200px; margin-bottom: 100px">
     <p class="text-sm">当前剩余次数：{{ leftTime }}</p>
-    <p class="text-hg">充值</p>
+    <p class="text-hg">充值(限时优惠)</p>
     <p class="text-md">每天首次登录获得3次免费次数，超出使用次数请购买次数</p>
     <p class="text-sm">使用须知：</p>
     <p class="text-sm">
@@ -15,13 +15,13 @@
         <span class="text-lg">￥1</span><span class="text-md">3次</span>
       </a-radio>
       <a-radio :style="radioStyle" :value="10">
-        <span class="text-lg">￥10</span><span class="text-md">40次</span>
+        <span class="text-lg">￥10</span><span class="text-md">50次</span>
       </a-radio>
       <a-radio :style="radioStyle" :value="30">
-        <span class="text-lg">￥30</span><span class="text-md">150次</span>
+        <span class="text-lg">￥30</span><span class="text-md">180次</span>
       </a-radio>
       <a-radio :style="radioStyle" :value="50">
-        <span class="text-lg">￥50</span><span class="text-md">300次</span>
+        <span class="text-lg">￥50</span><span class="text-md">400次</span>
       </a-radio>
       <a-button type="primary" @click="onSubmit(value)" style="margin-top: 30px">充值</a-button>
       <a-modal v-model:visible="visible" title="请用支付宝扫码" @ok="handleOk">
