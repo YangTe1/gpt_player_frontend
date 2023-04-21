@@ -7,9 +7,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { domain } from '../utils/consts'
+import { message } from 'ant-design-vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
+    const token = localStorage.getItem('token')
+    console.log(token)
+    if (token) {
+      const router = useRouter()
+      message.info('您已登录，请刷新页面')
+      router.push({
+        path: '/'
+      })
+      return
+    }
     const appId = '2021003189677158'
     const redirectUrl = `${domain}/fake_login`
     const redirectToAli = () => {
