@@ -16,6 +16,7 @@
           type="primary"
           @click="onSubmit"
           style="float: right; margin: 5px; margin-top: 30px"
+          :disabled="disabled"
           >运行</a-button
         >
       </div>
@@ -54,6 +55,7 @@ export default defineComponent({
     const router = useRouter()
     const example = ref<string>('')
     const isLoading = ref<boolean>(false)
+    const disabled = ref<boolean>(false)
     const responseMsg = ref<string>('')
     const token = localStorage.getItem('token')
     console.log(token)
@@ -101,6 +103,7 @@ export default defineComponent({
 
     const onSubmit = async () => {
       isLoading.value = true
+      disabled.value = true
       console.log('运行了')
       let data: any
       try {
@@ -149,6 +152,7 @@ export default defineComponent({
           responseMsg.value = content
         }
 
+        disabled.value = false
         console.log('data: ', content)
         const client = newClient(token as string)
         try {
@@ -176,7 +180,8 @@ export default defineComponent({
       example,
       responseMsg,
       appData,
-      onSubmit
+      onSubmit,
+      disabled
     }
   }
 })
