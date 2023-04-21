@@ -32,11 +32,19 @@ export default defineComponent({
         query: {}
       })
     }
+    const confirm = () => {
+      router.push({
+        path: '/logout'
+      })
+    }
+    const cancel = () => {}
     return {
       token,
       jump,
       navs,
-      selectedKeys1
+      selectedKeys1,
+      confirm,
+      cancel
     }
   }
 })
@@ -54,10 +62,21 @@ export default defineComponent({
       mode="horizontal"
       :style="{ lineHeight: '64px' }"
     >
-      <a-menu-item v-for="nav in navs" :key="nav.key" @click="jump(nav.name)">
-        <span class="text-sm">{{ nav.label }}</span>
+      <a-menu-item v-for="nav in navs" :key="nav.key">
+        <span class="text-sm" v-if="nav.label !== '退出登录'" @click="jump(nav.name)">{{
+          nav.label
+        }}</span>
 
-        <!-- <RouterLink :to="nav.router">{{ nav.label }}</RouterLink> -->
+        <a-popconfirm
+          v-if="nav.label === '退出登录'"
+          title="确定退出吗?"
+          ok-text="是"
+          cancel-text="否"
+          @confirm="confirm"
+          @cancel="cancel"
+        >
+          <a href="#">退出登录</a>
+        </a-popconfirm>
       </a-menu-item>
       <a-menu-item v-if="token" @click="jump('payment')">
         <UserOutlined />

@@ -45,6 +45,11 @@ export default defineComponent({
   components: {
     MarkdownIt
   },
+  beforeRouteUpdate(to, from, next) {
+    // 强制刷新组件
+    this.$forceUpdate()
+    next()
+  },
   setup() {
     const router = useRouter()
     const example = ref<string>('')
